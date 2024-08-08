@@ -8,7 +8,7 @@ streamlit.write(topic_request)
 if streamlit.button("Submit", type="primary"):
     sent_to_OpenAI = streamlit.write("We will send to Open AI Here and return the post in " + translation_request)
 
-if sent_to_OpenAI:
+if sent_to_OpenAI is not None:
     platform_request = streamlit.selectbox("Which platform do you want to post on?", ("LINKEDIN", "TWITTER"))
     if streamlit.button("Post", type="primary"):
         streamlit.write("We Posted the content on " + platform_request)
