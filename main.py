@@ -9,7 +9,8 @@ streamlit.write(topic_request)
 if streamlit.button("Submit", type="primary"):
     streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
     openAI_results = streamlit.text("What we returned from OpenAI")
-    streamlit.session_state.key = openAI_results
+    if 'key' not in streamlit.session_state:
+        streamlit.session_state.key = openAI_results
 
 if 'key' in streamlit.session_state:
     platform_request = streamlit.selectbox("Which platform do you want to post on?", ("LINKEDIN", "TWITTER"))
