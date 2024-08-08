@@ -8,7 +8,6 @@ streamlit.write(topic_request)
 final_text = ""
 if streamlit.button("Submit", type="primary"):
     streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
-    streamlit.image()
     streamlit.text("What we returned from OpenAI")
 
 if final_text != "":
