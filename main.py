@@ -15,3 +15,4 @@ if 'key' in streamlit.session_state:
     platform_request = streamlit.selectbox("Which platform do you want to post on?", ("LINKEDIN", "TWITTER"))
     if streamlit.button("Post", type="primary"):
         streamlit.write("We Posted the content on ",platform_request)
+        streamlit.write("The content was",streamlit.session_state.key)
