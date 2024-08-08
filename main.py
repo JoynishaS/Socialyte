@@ -5,9 +5,13 @@ topic_request = streamlit.text_input("Enter a topic for your post","How pretty w
 translation_request = streamlit.selectbox("What Language should the post be in?", ("EN", "ES"))
 streamlit.write(image_request)
 streamlit.write(topic_request)
+final_text = ""
 if streamlit.button("Submit", type="primary"):
     streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
-    platform_request = streamlit.selectbox("Which platform do you want to post on?", ("LINKEDIN", "TWITTER"))
+    streamlit.image()
+    streamlit.text("What we returned from OpenAI")
 
-if streamlit.button("Post", type="primary"):
-    streamlit.write("We Posted the content on ",platform_request)
+if final_text != "":
+    platform_request = streamlit.selectbox("Which platform do you want to post on?", ("LINKEDIN", "TWITTER"))
+    if streamlit.button("Post", type="primary"):
+        streamlit.write("We Posted the content on ",platform_request)
