@@ -38,3 +38,5 @@ if 'key' in streamlit.session_state:
         streamlit.write("We Posted the content on ",platform_request)
         streamlit.write(streamlit.session_state['key'])
 
+if 'image' in streamlit.session_state:
+    streamlit.image(streamlit.session_state['image'])
