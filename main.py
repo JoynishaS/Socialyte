@@ -26,7 +26,7 @@ if streamlit.button("Submit", type="primary"):
     streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
     text_returned = streamlit.text_area("This is the text OpenAI Returned","Text that was returned")
     data_response = sendToOpenAI(image_request)
-    streamlit.write(data_response['url'])
+    streamlit.write(data_response)
     streamlit.session_state['key'] = text_returned
     streamlit.session_state['image'] = data_response
 
