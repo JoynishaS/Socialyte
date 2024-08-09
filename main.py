@@ -17,7 +17,7 @@ streamlit.write(topic_request)
 def sendToOpenAI(description):
     client.images.generate(
         model = "dall-e-3",
-        prompt =description,
+        prompt =str(description),
         n=1,
         size ="1024x1024"
     )
@@ -25,7 +25,7 @@ def sendToOpenAI(description):
 if streamlit.button("Submit", type="primary"):
     streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
     text_returned = streamlit.text_area("This is the text OpenAI Returned","Text that was returned")
-    data_response = sendToOpenAI(topic_request)
+    data_response = sendToOpenAI(image_request)
     streamlit.write(data_response)
     streamlit.session_state['key'] = text_returned
     streamlit.session_state['image'] = data_response
