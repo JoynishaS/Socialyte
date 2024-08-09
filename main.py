@@ -26,9 +26,11 @@ if streamlit.button("Submit", type="primary"):
     streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
     text_returned = streamlit.text_area("This is the text OpenAI Returned","Text that was returned")
     data_response = sendToOpenAI(image_request)
+    #keeping this here for testing purposes right now
     streamlit.write(data_response.data[0].url)
+
     streamlit.session_state['key'] = text_returned
-    streamlit.session_state['image'] = data_response
+    streamlit.session_state['image'] = data_response.data[0].url
 
 if 'key' in streamlit.session_state:
     platform_request = streamlit.selectbox("Which platform do you want to post on?", ("LINKEDIN", "TWITTER"))
