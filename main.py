@@ -17,7 +17,7 @@ streamlit.write(topic_request)
 def sendToOpenAI(description):
     return client.images.generate(
         model = "dall-e-3",
-        prompt =str(description),
+        prompt =description,
         n=1,
         size ="1024x1024"
     )
