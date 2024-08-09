@@ -19,7 +19,7 @@ def sendToOpenAI(description):
         model = "dall-e-3",
         prompt =description,
         n=1,
-        size ="1024 x 1024"
+        size ="1024x1024"
     )
 
 if streamlit.button("Submit", type="primary"):
