@@ -13,7 +13,6 @@ topic_request = streamlit.text_input("Enter a topic for your post","How pretty w
 translation_request = streamlit.selectbox("What Language should the post be in?", ("EN", "ES"))
 streamlit.write(image_request)
 streamlit.write(topic_request)
-print(os.environ['OPENAI_API_KEY'])
 
 def sendToOpenAI(description):
     client.images.generate(
