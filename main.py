@@ -4,7 +4,7 @@ import os
 
 client = OpenAI(
     organization='org-R2DDZN0eVGgEosD61XGShpU8',
-    api_key = os.getenv("OPENAI_API_KEY"),
+    api_key = streamlit.secrets['OPENAI_API_KEY'],
     project='proj_fqZ8kTAr98ZSgzH5cEdb8mGW'
 )
 
