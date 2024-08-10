@@ -1,6 +1,7 @@
 import streamlit
 from openai import OpenAI
 import os
+from io import StringIO
 
 client = OpenAI(
     organization='org-R2DDZN0eVGgEosD61XGShpU8',
@@ -9,8 +10,8 @@ client = OpenAI(
 )
 
 imageModificationChoice = streamlit.radio(
-    "Generate an image, Upload an image, Revised Uploaded Image",
-    ["***Generate Image by Text***", "***Upload Image to be posted as is***", "***Upload image to be randomly revised***"],
+    "Generate an image, Upload your own image",
+    ["***Generate Image by Text***", "***Upload your own Image***"],
     index=None,
 )
 
@@ -18,16 +19,10 @@ match imageModificationChoice:
     case "***Generate Image by Text***":
         image_request = streamlit.text_input("Enter text for the type of image you want","A cute white bunny with blue eyes")
         streamlit.session_state['image_request'] = image_request
-    case "***Upload Image to be posted as is***":
+    case "***Upload your own Image***":
         uploaded_file = streamlit.file_uploader("Choose a 1024x1024 png image",type = ['png'])
         if uploaded_file is not None:
-            image_request = uploaded_file.getvalue()
-            streamlit.session_state['image_request'] = image_request
-    case "***Upload image to be randomly revised***":
-        uploaded_file = streamlit.file_uploader("Choose a 1024x1024 png image", type=['png'])
-        if uploaded_file is not None:
-            image_request = uploaded_file.getvalue()
-            streamlit.session_state['image_request'] = image_request
+            streamlit.session_state['image'] = uploaded_file
 
 topic_request = streamlit.text_input("Enter a topic for your post","How pretty white bunnies with blue eyes are")
 translation_request = streamlit.selectbox("What Language should the post be in?", ("EN", "ES"))
@@ -46,18 +41,6 @@ def imageWorkFlow():
         case "***Generate Image by Text***":
             data_response = sendToOpenAI(streamlit.session_state['image_request'])
             streamlit.session_state['image'] = data_response.data[0].url
-        case "***Upload Image to be posted as is***":
-            uploaded_file = streamlit.file_uploader("Choose a 1024x1024 png image", type=['png'])
-            if uploaded_file is not None:
-                data_response = sendToOpenAI(streamlit.session_state['image_request'])
-                streamlit.session_state['image'] = data_response.data[0].url
-        case "***Upload image to be randomly revised***":
-            uploaded_file = streamlit.file_uploader("Choose a 1024x1024 png image", type=['png'])
-            if uploaded_file is not None:
-                data_response = sendToOpenAI(streamlit.session_state['image_request'])
-                streamlit.session_state['image'] = data_response.data[0].url
-
-
 
 if streamlit.button("Submit", type="primary"):
     streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
