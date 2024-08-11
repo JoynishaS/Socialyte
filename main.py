@@ -133,7 +133,7 @@ if streamlit.button("Submit", type="primary"):
     if translation_request != "English":
         language_input = inputDefinition(translation_request)
         streamlit.session_state['input'] = language_input
-        localized_text = graniteTextLocalization(text_returned)
+        localized_text = graniteTextLocalization(text_returned)['results'][0]['generated_text']
         streamlit.text_area("Your Localized Post", localized_text)
         streamlit.session_state['key'] = localized_text
     else:
