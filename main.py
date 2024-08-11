@@ -24,7 +24,7 @@ match imageModificationChoice:
         if uploaded_file is not None:
             streamlit.session_state['image'] = uploaded_file
 
-topic_request = streamlit.text_input("Enter a topic for your post","How pretty white bunnies with blue eyes are")
+topic_request = streamlit.text_input("Enter a topic for your post","Write a post for Twitter about the history of White Bunnies with Blue Eyes")
 translation_request = streamlit.selectbox("What Language should the post be in?", ("EN", "ES"))
 streamlit.write(topic_request)
 
@@ -42,13 +42,21 @@ def imageWorkFlow():
             data_response = sendToOpenAI(streamlit.session_state['image_request'])
             streamlit.session_state['image'] = data_response.data[0].url
 
+def sendTextToOpenAI(userRequest):
+    return client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "user", "content": userRequest}
+                ]
+    )
+
 if streamlit.button("Submit", type="primary"):
     streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
-    text_returned = streamlit.text_area("This is the text OpenAI Returned","Text that was returned")
+    text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
+    streamlit.text_area("This is the text OpenAI Returned", text_returned)
     imageWorkFlow()
     #keeping this here for testing purposes right now
     streamlit.write(streamlit.session_state['image'])
-
     streamlit.session_state['key'] = text_returned
 
 
