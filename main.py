@@ -86,8 +86,7 @@ def graniteTextLocalization(texttoTranslate):
         "Content-Type": "application/json",
         "Authorization": "Bearer %s"%access_token
     }
-    streamlit.write(body)
-    streamlit.write(headers)
+
     response = requests.post(
         url,
         headers=headers,
@@ -125,8 +124,6 @@ translation_request = streamlit.selectbox("What Language should the post be in?"
 
 #When the user clicks submit add the text returned and image from Open AI to the screen, also save text for use later.
 if streamlit.button("Submit", type="primary"):
-    streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
-    streamlit.write(translation_request)
     text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
 
     #Localize if a language other then english is selected from the dropdown
@@ -143,14 +140,14 @@ if streamlit.button("Submit", type="primary"):
     #Get image url
     imageWorkFlow()
 
+#Display image saved on the screen
+if 'image' in streamlit.session_state and 'key' in streamlit.session_state:
+    streamlit.image(streamlit.session_state['image'])
 
 #Allow the user to choose what platform they want to post to and submit!
-if 'key' in streamlit.session_state:
+if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
     platform_request = streamlit.selectbox("Which platform do you want to post on?", ("LINKEDIN", "TWITTER"))
     if streamlit.button("Post", type="primary"):
         streamlit.write("We Posted the content on ",platform_request)
         streamlit.write(streamlit.session_state['key'])
 
-#Display image saved on the screen
-if 'image' in streamlit.session_state:
-    streamlit.image(streamlit.session_state['image'])
