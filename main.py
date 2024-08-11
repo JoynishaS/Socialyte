@@ -34,13 +34,41 @@ def sendTextToOpenAI(userRequest):
                 ]
     )
 
+def graniteAuthorization():
+    url = "https://iam.cloud.ibm.com/identity/token"
+    body = 'grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey={}'.format(streamlit.secrets['GRANITE_API_KEY'])
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+    }
+    response = requests.post(
+        url,
+        headers=headers,
+        data=body
+    )
+    if response.status_code != 200:
+        raise Exception("Non-200 response: " + str(response.text))
+
+    data = response.json()
+    return data['access_token']
+
+def inputDefinition(language):
+    match language:
+        case "ES":
+            input = "Translate the following text from English to Spanish"
+        case "DE":
+            input = "Translate the following text from English to German"
+        case "FR":
+            input = "Translate the following text from English to French"
+    return input
+
 #Function to return localized from Granite
 def graniteTextLocalization(texttoTranslate):
+    access_token = graniteAuthorization()
     url = "https://us-south.ml.cloud.ibm.com/ml/v1/text/generation?version=2023-05-29"
     body = {
-        "input": """Translate the following text from English to Spanish: 
+        "input": """%s: 
         Text:%s
-        Translation:"""%texttoTranslate,
+        Translation:"""%(streamlit.session_state['input'],texttoTranslate),
             "parameters": {
                 "decoding_method": "sample",
                 "max_new_tokens": 1024,
@@ -58,9 +86,10 @@ def graniteTextLocalization(texttoTranslate):
     headers = {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": "%s"%streamlit.secrets['GRANITE_ACCESS_TOKEN']
+        "Authorization": "Bearer %s"%access_token
     }
-
+    streamlit.write(body)
+    streamlit.write(headers)
     response = requests.post(
         url,
         headers=headers,
@@ -94,12 +123,16 @@ match imageModificationChoice:
 topic_request = streamlit.text_input("Enter a topic for your post","Write a post for Twitter about the history of White Bunnies with Blue Eyes")
 
 #Dropdown to allow users to choose what language they want to translate to
-translation_request = streamlit.selectbox("What Language should the post be in?", ("EN", "ES"))
+translation_request = streamlit.selectbox("What Language should the post be in?", ("EN", "ES", "FR", "DE"))
 
 #When the user clicks submit add the text returned and image from Open AI to the screen, also save text for use later.
 if streamlit.button("Submit", type="primary"):
     streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
+    streamlit.write(translation_request)
+    if 'key' in streamlit.session_state and translation_request !="EN":
+        streamlit.session_state['input'] = inputDefinition(translation_request)
     text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
+    streamlit.write(graniteTextLocalization(text_returned))
     streamlit.text_area("This is the text OpenAI Returned", text_returned)
     imageWorkFlow()
     #keeping this here for testing purposes right now
