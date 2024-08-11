@@ -53,12 +53,10 @@ def graniteAuthorization():
 
 def inputDefinition(language):
     match language:
-        case "ES":
+        case "Spanish":
             input = "Translate the following text from English to Spanish"
-        case "DE":
+        case "German":
             input = "Translate the following text from English to German"
-        case "FR":
-            input = "Translate the following text from English to French"
     return input
 
 #Function to return localized from Granite
@@ -123,21 +121,28 @@ match imageModificationChoice:
 topic_request = streamlit.text_input("Enter a topic for your post","Write a post for Twitter about the history of White Bunnies with Blue Eyes")
 
 #Dropdown to allow users to choose what language they want to translate to
-translation_request = streamlit.selectbox("What Language should the post be in?", ("EN", "ES", "FR", "DE"))
+translation_request = streamlit.selectbox("What Language should the post be in?", ("English","Spanish", "German"))
 
 #When the user clicks submit add the text returned and image from Open AI to the screen, also save text for use later.
 if streamlit.button("Submit", type="primary"):
     streamlit.write("We will send to Open AI Here and return the post in ",translation_request)
     streamlit.write(translation_request)
-    if 'key' in streamlit.session_state and translation_request !="EN":
-        streamlit.session_state['input'] = inputDefinition(translation_request)
     text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
-    streamlit.write(graniteTextLocalization(text_returned))
-    streamlit.text_area("This is the text OpenAI Returned", text_returned)
+
+    #Localize if a language other then english is selected from the dropdown
+    if translation_request != "English":
+        language_input = inputDefinition(translation_request)
+        streamlit.session_state['input'] = language_input
+        localized_text = graniteTextLocalization(text_returned)
+        streamlit.text_area("Your Localized Post", localized_text)
+        streamlit.session_state['key'] = localized_text
+    else:
+        streamlit.text_area("Your Post", text_returned)
+        streamlit.session_state['key'] = text_returned
+
+    #Get image url
     imageWorkFlow()
-    #keeping this here for testing purposes right now
-    streamlit.write(streamlit.session_state['image'])
-    streamlit.session_state['key'] = text_returned
+
 
 #Allow the user to choose what platform they want to post to and submit!
 if 'key' in streamlit.session_state:
