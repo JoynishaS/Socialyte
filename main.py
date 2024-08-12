@@ -3,6 +3,9 @@ from openai import OpenAI
 import requests
 import LinkedInAPI
 
+LinkedInAPI.getAuthorizationCode()
+
+
 #Open AI Client Authorization
 client = OpenAI(
     organization='org-R2DDZN0eVGgEosD61XGShpU8',
@@ -125,6 +128,8 @@ translation_request = streamlit.selectbox("What Language should the post be in?"
 
 #When the user clicks submit add the text returned and image from Open AI to the screen, also save text for use later.
 if streamlit.button("Submit", type="primary"):
+    streamlit.write("We should be here")
+    streamlit.write(streamlit.query_params.code)
     text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
 
     #Localize if a language other then english is selected from the dropdown
@@ -145,13 +150,12 @@ if streamlit.button("Submit", type="primary"):
 if 'image' in streamlit.session_state and 'key' in streamlit.session_state:
     streamlit.image(streamlit.session_state['image'])
 
+
 #Allow the user to choose what platform they want to post to and submit!
 if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
     platform_request = streamlit.selectbox("Which platform do you want to post on?", ("LINKEDIN", "TWITTER"))
     if streamlit.button("Post", type="primary"):
         streamlit.write("We Posted the content on ",platform_request)
         streamlit.write(streamlit.session_state['key'])
-        LinkedInAPI.getAuthorizationCode()
-        streamlit.write(streamlit.query_params["code"])
 
 
