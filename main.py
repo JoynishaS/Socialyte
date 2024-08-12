@@ -5,7 +5,6 @@ import LinkedInAPI
 
 LinkedInAPI.getAuthorizationCode()
 
-
 #Open AI Client Authorization
 client = OpenAI(
     organization='org-R2DDZN0eVGgEosD61XGShpU8',
@@ -131,7 +130,7 @@ if streamlit.button("Submit", type="primary"):
     #This is how you can get params in the url!!!
     streamlit.write("We should be here")
     streamlit.write(streamlit.query_params.code)
-    
+
     text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
 
     #Localize if a language other then english is selected from the dropdown
