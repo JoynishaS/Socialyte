@@ -1,22 +1,12 @@
 import requests
 import streamlit
 
+import webbrowser
+
+
 def getAuthorizationCode():
     url="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(streamlit.secrets['LINKEDIN_CLIENT_ID'],streamlit.secrets['LINKEDIN_REDIRECT_URL'])
-    headers ={}
-    payload ={}
-    response = requests.get(
-        url,
-        headers = headers,
-        data = payload,
-    )
-    if response.status_code != 200:
-        raise Exception("Non-200 response: " + str(response.text))
-
-    data = response
-    return data
-
-getAuthorizationCode()
+    webbrowser.open(url)
 
 def getAccessToken():
     url = "https://www.linkedin.com/oauth/v2/accessToken"
