@@ -1,6 +1,7 @@
 import streamlit
 from openai import OpenAI
 import requests
+import LinkedInAPI
 
 #Open AI Client Authorization
 client = OpenAI(
@@ -150,4 +151,5 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
     if streamlit.button("Post", type="primary"):
         streamlit.write("We Posted the content on ",platform_request)
         streamlit.write(streamlit.session_state['key'])
+        LinkedInAPI.getAuthorizationCode()
 
