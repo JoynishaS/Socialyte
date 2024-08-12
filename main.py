@@ -1,12 +1,7 @@
 import streamlit
-import json
 from openai import OpenAI
 import requests
 import LinkedInAPI
-from streamlit_js_eval import get_page_location
-
-page=get_page_location()
-streamlit.write(page)
 
 #Open AI Client Authorization
 client = OpenAI(
@@ -157,5 +152,6 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
         streamlit.write("We Posted the content on ",platform_request)
         streamlit.write(streamlit.session_state['key'])
         LinkedInAPI.getAuthorizationCode()
+        streamlit.write(streamlit.query_params["code"])
 
 
