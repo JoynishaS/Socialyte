@@ -128,8 +128,10 @@ translation_request = streamlit.selectbox("What Language should the post be in?"
 
 #When the user clicks submit add the text returned and image from Open AI to the screen, also save text for use later.
 if streamlit.button("Submit", type="primary"):
+    #This is how you can get params in the url!!!
     streamlit.write("We should be here")
     streamlit.write(streamlit.query_params.code)
+    
     text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
 
     #Localize if a language other then english is selected from the dropdown
