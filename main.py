@@ -2,14 +2,8 @@ import streamlit
 from openai import OpenAI
 import requests
 import LinkedInAPI
-import webbrowser
 
-
-def getAuthorizationCode():
-    url="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(streamlit.secrets['LINKEDIN_CLIENT_ID'],streamlit.secrets['LINKEDIN_REDIRECT_URL'])
-    webbrowser.open(url)
-
-getAuthorizationCode()
+LinkedInAPI.getAuthorizationCode()
 
 #Open AI Client Authorization
 client = OpenAI(
@@ -136,7 +130,6 @@ if streamlit.button("Submit", type="primary"):
     #This is how you can get params in the url!!!
     streamlit.write("We should be here")
     streamlit.write(streamlit.query_params.code)
-
     text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
 
     #Localize if a language other then english is selected from the dropdown
