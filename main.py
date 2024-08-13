@@ -2,8 +2,14 @@ import streamlit
 from openai import OpenAI
 import requests
 import LinkedInAPI
+import webbrowser
 
-LinkedInAPI.getAuthorizationCode()
+
+def getAuthorizationCode():
+    url="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(streamlit.secrets['LINKEDIN_CLIENT_ID'],streamlit.secrets['LINKEDIN_REDIRECT_URL'])
+    webbrowser.open(url)
+
+getAuthorizationCode()
 
 #Open AI Client Authorization
 client = OpenAI(
