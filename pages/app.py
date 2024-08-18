@@ -1,9 +1,27 @@
 import streamlit
 from openai import OpenAI
 import requests
-import LinkedInAPI
 
-#LinkedInAPI.getAuthorizationCode()
+#Get Access Token For LinkedIn
+
+def getAccessTokenLinkedIn():
+    url = "https://www.linkedin.com/oauth/v2/accessToken"
+    body = 'grant_type=authorization_code&code=%s&client_id=%s&client_secret=%s&redirect_uri=https://socialyte.streamlit.app/app'%(streamlit.query_params.code,streamlit.secrets['LINKEDIN_CLIENT_ID'],streamlit.secrets['LINKEDIN_CLIENT_SECRET'])
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+    }
+    response = requests.post(
+        url,
+        headers=headers,
+        data=body
+    )
+    if response.status_code != 200:
+        raise Exception("Non-200 response: " + str(response.text))
+
+    data = response.json()
+    return data['access_token']
+
+streamlit.write(getAccessTokenLinkedIn())
 
 #Open AI Client Authorization
 client = OpenAI(
