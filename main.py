@@ -13,7 +13,7 @@ def image_button(image_path, label="", width=200, height=50):
     components.html(html_str, height=height)
 
 # Use the custom component in your app
-image_button("LinkedIn_button.png", "Click Me", 200, 50)
+image_button("Socialyte/LinkedIn_button.png", "Click Me", 200, 50)
 
 #Set this up as a separate page. As a home page
 def getAuthorizationCode():
