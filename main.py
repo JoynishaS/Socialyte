@@ -1,24 +1,28 @@
+import base64
+from pathlib import Path
+
 import requests
 import streamlit
 import webbrowser
-import streamlit.components.v1 as components
+
+
+from streamlit.components.v1 import html
 
 streamlit.write("Welcome to Socialyte!")
 streamlit.write("Sign in to linked in or twitter to begin!")
 
-# Define your custom component
-def image_button(image_path, label="", width=200, height=50):
-    # Frontend code here
-    html_str = "<button><img src='{}' width='{}' height='{}'>{}</button>".format(image_path,width,height,label)
-    components.html(html_str, height=height)
+def img_to_bytes(img_path):
+    img_bytes = Path(img_path).read_bytes()
+    encoded_img = base64.b64encode(img_bytes).decode()
+    return encoded_img
 
-# Use the custom component in your app
-image_button("LinkedIn_button.jpg", "Click Me", 200, 50)
+#LinkedIn Button!
+image_base64 = img_to_bytes("LinkedIn_button.jpg")
+url = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(
+    streamlit.secrets['LINKEDIN_CLIENT_ID'], streamlit.secrets['LINKEDIN_REDIRECT_URL'])
+html = f"<a href='{url}'><img src='data:image/png;base64,{image_base64}'></a>"
+streamlit.markdown(html, unsafe_allow_html=True)
 
-#Set this up as a separate page. As a home page
-def getAuthorizationCode():
-    url="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(streamlit.secrets['LINKEDIN_CLIENT_ID'],streamlit.secrets['LINKEDIN_REDIRECT_URL'])
-    webbrowser.open(url)
 
 def getAccessToken():
     url = "https://www.linkedin.com/oauth/v2/accessToken"
