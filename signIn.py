@@ -2,6 +2,18 @@ import requests
 import streamlit
 import webbrowser
 
+streamlit.write("Welcome to Socialyte!")
+streamlit.write("Sign in to linked in or twitter to begin!")
+
+# Define your custom component
+def image_button(image_path, label="", width=200, height=50):
+    # Frontend code here
+    html_str = f"<button><img src='{image_path}' width='{width}' height='{height}'>{label}</button>"
+    streamlit.components.html(html_str, height=height)
+
+# Use the custom component in your app
+image_button("LinkedIn_button.png", "Click Me", 200, 50)
+
 #Set this up as a separate page. As a home page
 def getAuthorizationCode():
     url="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(streamlit.secrets['LINKEDIN_CLIENT_ID'],streamlit.secrets['LINKEDIN_REDIRECT_URL'])

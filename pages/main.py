@@ -3,7 +3,7 @@ from openai import OpenAI
 import requests
 import LinkedInAPI
 
-LinkedInAPI.getAuthorizationCode()
+#LinkedInAPI.getAuthorizationCode()
 
 #Open AI Client Authorization
 client = OpenAI(
