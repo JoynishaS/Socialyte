@@ -1,6 +1,7 @@
 import requests
 import streamlit
 import webbrowser
+import streamlit.components.v1 as components
 
 streamlit.write("Welcome to Socialyte!")
 streamlit.write("Sign in to linked in or twitter to begin!")
@@ -9,7 +10,7 @@ streamlit.write("Sign in to linked in or twitter to begin!")
 def image_button(image_path, label="", width=200, height=50):
     # Frontend code here
     html_str = f"<button><img src='{image_path}' width='{width}' height='{height}'>{label}</button>"
-    streamlit.components.html(html_str, height=height)
+    components.html(html_str, height=height)
 
 # Use the custom component in your app
 image_button("LinkedIn_button.png", "Click Me", 200, 50)
