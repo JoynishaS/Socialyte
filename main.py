@@ -9,7 +9,7 @@ streamlit.write("Sign in to linked in or twitter to begin!")
 # Define your custom component
 def image_button(image_path, label="", width=200, height=50):
     # Frontend code here
-    html_str = f"<button><img src='{image_path}' width='{width}' height='{height}'>{label}</button>"
+    html_str = "<button><img src='{}' width='{}' height='{}'>{}</button>".format(image_path,width,height,label)
     components.html(html_str, height=height)
 
 # Use the custom component in your app
