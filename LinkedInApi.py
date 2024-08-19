@@ -3,6 +3,7 @@ import requests
 import json
 
 
+
 #Get Access Token For LinkedIn
 def getAccessTokenLinkedIn():
     url = "https://www.linkedin.com/oauth/v2/accessToken"
@@ -43,7 +44,7 @@ def getAuthorID():
 def postToLinkedIn():
     authorID = getAuthorID()
     if 'authorID' is not streamlit.session_state:
-        streamlit.session_state['authorID']
+        streamlit.session_state['authorID'] = authorID
     url = "https://api.linkedin.com/rest/posts"
     body = json.dumps({
       "author": "urn:li:person:%s"%(authorID),
@@ -99,5 +100,7 @@ def initializeImageUpload():
     data = response.json()
     streamlit.write(data)
     return data
+
+initializeImageUpload()
 
 #def uploadImage():
