@@ -27,9 +27,11 @@ def getAuthorID():
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
+    body = {}
     response = requests.get(
         url,
-        headers
+        headers = headers,
+        data = body
     )
     if response.status_code != 200:
         raise Exception("Non-200 response: " + str(response.text))
