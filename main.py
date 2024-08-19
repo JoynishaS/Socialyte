@@ -1,12 +1,7 @@
 import base64
+import streamlit
 from pathlib import Path
 
-import requests
-import streamlit
-import webbrowser
-
-
-from streamlit.components.v1 import html
 
 streamlit.write("Welcome to Socialyte!")
 streamlit.write("Sign in to linked in or twitter to begin!")

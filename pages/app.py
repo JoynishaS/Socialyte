@@ -1,6 +1,7 @@
 import streamlit
 from openai import OpenAI
 import requests
+import LinkedInAPI
 
 #Get Access Token For LinkedIn
 
@@ -175,5 +176,7 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
     if streamlit.button("Post", type="primary"):
         streamlit.write("We Posted the content on ",platform_request)
         streamlit.write(streamlit.session_state['key'])
+        if(platform_request == "LINKEDIN"):
+            LinkedInAPI.postToLinkedIn(streamlit.session_state['key'],linkedin_access_token)
 
 
