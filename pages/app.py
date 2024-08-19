@@ -22,8 +22,6 @@ def getAccessTokenLinkedIn():
     data = response.json()
     return data['access_token']
 
-streamlit.write(getAccessTokenLinkedIn())
-
 #Open AI Client Authorization
 client = OpenAI(
     organization='org-R2DDZN0eVGgEosD61XGShpU8',
@@ -177,6 +175,7 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
         streamlit.write("We Posted the content on ",platform_request)
         streamlit.write(streamlit.session_state['key'])
         if(platform_request == "LINKEDIN"):
+            linkedin_access_token = getAccessTokenLinkedIn()
             LinkedInAPI.postToLinkedIn(streamlit.session_state['key'],linkedin_access_token)
 
 
