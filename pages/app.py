@@ -45,19 +45,19 @@ def postToLinkedIn():
     body = json.dumps({
       "author": "urn:li:organization:%s"%(authorID),
       "commentary": "%s"%(streamlit.session_state['key']),
-      "visibility": "PRIVATE",
+      "visibility": "PUBLIC",
       "distribution": {
         "feedDistribution": "MAIN_FEED",
         "targetEntities": [],
         "thirdPartyDistributionChannels": []
       },
-      "lifecycleState": "PUBLISHED",
+      "lifecycleState": "DRAFT",
       "isReshareDisabledByAuthor": False
 })
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
         'X-Restli-Protocol-Version': '2.0.0',
-        'LinkedIn-Version': '202304',
+        'LinkedIn-Version': '202308',
         'Content-Type': 'application/json'
     }
     response = requests.post(
