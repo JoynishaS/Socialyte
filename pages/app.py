@@ -22,7 +22,7 @@ def getAccessTokenLinkedIn():
     data = response.json()
     return data['access_token']
 
-linkedin_access_token = getAccessTokenLinkedIn()
+streamlit.write(getAccessTokenLinkedIn())
 
 #Open AI Client Authorization
 client = OpenAI(
