@@ -95,8 +95,8 @@ def initializeImageUpload():
         headers=headers,
         data=body
     )
-    if response.status_code != 200:
-        raise Exception("Non-200 response: " + str(response.text))
+    #if response.status_code != 200:
+        #raise Exception("Non-200 response: " + str(response.text))
 
     data = response.json()
     streamlit.write(data)
