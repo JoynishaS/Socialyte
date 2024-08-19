@@ -23,7 +23,7 @@ def getAccessTokenLinkedIn():
     return data['access_token']
 
 def getAuthorID():
-    url = "https://api.linkedin.com/v2/me"
+    url = "https://api.linkedin.com/v2/userinfo"
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
@@ -37,7 +37,7 @@ def getAuthorID():
         raise Exception("Non-200 response: " + str(response.text))
 
     data = response.json()
-    return data['id']
+    return data['sub']
 
 def postToLinkedIn():
     authorID = getAuthorID()
