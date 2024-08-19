@@ -18,7 +18,7 @@ def getAuthorID(accessToken):
     return data['id']
 
 def postToLinkedIn(postText,accessToken):
-    authorID = getAuthorID()
+    authorID = getAuthorID(accessToken)
     url = "https://www.linkedin.com/oauth/v2/accessToken"
     body = json.dumps({
       "author": "urn:li:organization:%s"%(authorID),
