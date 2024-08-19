@@ -87,7 +87,7 @@ def initializeImageUpload():
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
         'X-Restli-Protocol-Version': '2.0.0',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202307',
         'Content-Type': 'application/x-www-form-urlencoded'
     }
     response = requests.post(
