@@ -1,7 +1,7 @@
 import streamlit
 from openai import OpenAI
 import requests
-import LinkedInAPI
+import json
 
 #Get Access Token For LinkedIn
 
@@ -21,6 +21,53 @@ def getAccessTokenLinkedIn():
 
     data = response.json()
     return data['access_token']
+
+def getAuthorID():
+    url = "https://api.linkedin.com/v2/me"
+    headers = {
+        'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
+    }
+    response = requests.get(
+        url,
+        headers
+    )
+    if response.status_code != 200:
+        raise Exception("Non-200 response: " + str(response.text))
+
+    data = response.json()
+    return data['id']
+
+def postToLinkedIn():
+    authorID = getAuthorID()
+    url = "https://www.linkedin.com/oauth/v2/accessToken"
+    body = json.dumps({
+      "author": "urn:li:organization:%s"%(authorID),
+      "commentary": "%s"%(streamlit.session_state['key']),
+      "visibility": "PRIVATE",
+      "distribution": {
+        "feedDistribution": "MAIN_FEED",
+        "targetEntities": [],
+        "thirdPartyDistributionChannels": []
+      },
+      "lifecycleState": "PUBLISHED",
+      "isReshareDisabledByAuthor": False
+})
+    headers = {
+        'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
+        'X-Restli-Protocol-Version': '2.0.0',
+        'LinkedIn-Version': '202304',
+        'Content-Type': 'application/json'
+    }
+    response = requests.post(
+        url,
+        headers=headers,
+        data=body
+    )
+    if response.status_code != 200:
+        raise Exception("Non-200 response: " + str(response.text))
+
+    data = response.json()
+    return data.text
 
 #Open AI Client Authorization
 client = OpenAI(
@@ -178,6 +225,7 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
         streamlit.write(streamlit.session_state['key'])
         streamlit.write(streamlit.session_state['linkedInToken'])
         if(platform_request == "LINKEDIN"):
-            LinkedInAPI.postToLinkedIn()
+            postToLinkedIn()
+
 
 
