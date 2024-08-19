@@ -45,5 +45,4 @@ def postToLinkedIn(postText,accessToken):
     data = response.json()
     return data.text
 
-streamlit.write(postToLinkedIn())
 
