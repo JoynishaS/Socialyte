@@ -176,7 +176,8 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
     if streamlit.button("Post", type="primary"):
         streamlit.write("We Posted the content on ",platform_request)
         streamlit.write(streamlit.session_state['key'])
+        streamlit.write(streamlit.session_state['linkedInToken'])
         if(platform_request == "LINKEDIN"):
-            LinkedInAPI.postToLinkedIn(streamlit.session_state['key'],streamlit.session_state['linkedInToken'] )
+            LinkedInAPI.postToLinkedIn(streamlit.session_state['key'],streamlit.session_state['linkedInToken'])
 
 
