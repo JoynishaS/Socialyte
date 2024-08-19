@@ -51,7 +51,7 @@ def postToLinkedIn():
         "targetEntities": [],
         "thirdPartyDistributionChannels": []
       },
-      "lifecycleState": "DRAFT",
+      "lifecycleState": "PUBLISHED",
       "isReshareDisabledByAuthor": False
 })
     headers = {
@@ -65,7 +65,7 @@ def postToLinkedIn():
         headers=headers,
         data=body
     )
-    if response.status_code != 200:
+    if response.status_code != 201:
         raise Exception("Non-200 response: " + str(response.text))
 
     data = response.json()
