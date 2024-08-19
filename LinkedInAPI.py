@@ -1,11 +1,15 @@
-import streamlit
+
 import requests
 import json
 
-def getAuthorID():
+def getAuthorID(accessToken):
     url = "https://api.linkedin.com/v2/me"
+    headers = {
+        'Authorization': 'Bearer %s'%(accessToken),
+    }
     response = requests.get(
-        url
+        url,
+        headers
     )
     if response.status_code != 200:
         raise Exception("Non-200 response: " + str(response.text))
