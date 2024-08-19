@@ -28,6 +28,9 @@ client = OpenAI(
     api_key = streamlit.secrets['OPENAI_API_KEY'],
     project='proj_fqZ8kTAr98ZSgzH5cEdb8mGW'
 )
+#Only run the function once to get the access code!
+if 'linkedInToken' not in streamlit.session_state:
+    streamlit.session_state['linkedInToken']  = getAccessTokenLinkedIn()
 
 #Function to send user request for images to Open AI
 def sendToOpenAI(description):
@@ -146,7 +149,6 @@ translation_request = streamlit.selectbox("What Language should the post be in?"
 if streamlit.button("Submit", type="primary"):
     #This is how you can get params in the url!!!
     streamlit.write("We should be here")
-    streamlit.write(streamlit.query_params.code)
     text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
 
     #Localize if a language other then english is selected from the dropdown
@@ -175,7 +177,6 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
         streamlit.write("We Posted the content on ",platform_request)
         streamlit.write(streamlit.session_state['key'])
         if(platform_request == "LINKEDIN"):
-            linkedin_access_token = getAccessTokenLinkedIn()
-            LinkedInAPI.postToLinkedIn(streamlit.session_state['key'],linkedin_access_token)
+            LinkedInAPI.postToLinkedIn(streamlit.session_state['key'],streamlit.session_state['linkedInToken'] )
 
 
