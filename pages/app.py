@@ -178,6 +178,6 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
         streamlit.write(streamlit.session_state['key'])
         streamlit.write(streamlit.session_state['linkedInToken'])
         if(platform_request == "LINKEDIN"):
-            LinkedInAPI.postToLinkedIn(streamlit.session_state['key'],streamlit.session_state['linkedInToken'])
+            LinkedInAPI.postToLinkedIn()
 
 

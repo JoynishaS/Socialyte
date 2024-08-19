@@ -2,10 +2,10 @@ import streamlit
 import requests
 import json
 
-def getAuthorID(accessToken):
+def getAuthorID():
     url = "https://api.linkedin.com/v2/me"
     headers = {
-        'Authorization': 'Bearer %s'%(accessToken),
+        'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
     response = requests.get(
         url,
@@ -17,12 +17,12 @@ def getAuthorID(accessToken):
     data = response.json()
     return data['id']
 
-def postToLinkedIn(postText,accessToken):
-    authorID = getAuthorID(accessToken)
+def postToLinkedIn():
+    authorID = getAuthorID()
     url = "https://www.linkedin.com/oauth/v2/accessToken"
     body = json.dumps({
       "author": "urn:li:organization:%s"%(authorID),
-      "commentary": "%s"%(postText),
+      "commentary": "%s"%(streamlit.session_state['key']),
       "visibility": "PRIVATE",
       "distribution": {
         "feedDistribution": "MAIN_FEED",
@@ -33,7 +33,7 @@ def postToLinkedIn(postText,accessToken):
       "isReshareDisabledByAuthor": False
 })
     headers = {
-        'Authorization': 'Bearer %s'%(accessToken),
+        'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
         'X-Restli-Protocol-Version': '2.0.0',
         'LinkedIn-Version': '202304',
         'Content-Type': 'application/json'
