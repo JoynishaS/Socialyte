@@ -41,7 +41,7 @@ def getAuthorID():
 
 def postToLinkedIn():
     authorID = getAuthorID()
-    url = "https://www.linkedin.com/oauth/v2/accessToken"
+    url = "https://api.linkedin.com/rest/posts"
     body = json.dumps({
       "author": "urn:li:organization:%s"%(authorID),
       "commentary": "%s"%(streamlit.session_state['key']),
