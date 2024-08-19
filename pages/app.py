@@ -68,7 +68,7 @@ def postToLinkedIn():
     if response.status_code != 201:
         raise Exception("Non-200 response: " + str(response.text))
 
-    data = response.json()
+    data = response
     return data.text
 
 #Open AI Client Authorization
