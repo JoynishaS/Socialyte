@@ -115,7 +115,7 @@ def initializeImageUpload():
 
 def uploadImage():
     download_image(streamlit.session_state['uploadURL'])
-   '''url = streamlit.session_state['uploadURL']
+    url = streamlit.session_state['uploadURL']
     dl_image = "image.jpg"
     r = requests.get(url, allow_redirects=True)
     open(dl_image, 'wb').write(r.content)
@@ -137,7 +137,7 @@ def uploadImage():
         streamlit.write(data.status_code)
         return data
     else:
-        streamlit.write("We experienced an error with the call!")'''
+        streamlit.write("We experienced an error with the call!")
 
 def download_image(url):
     response = requests.get(url)
