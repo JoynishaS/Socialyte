@@ -44,7 +44,10 @@ def getAuthorID():
 def refreshToken():
     url = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(
         streamlit.secrets['LINKEDIN_CLIENT_ID'], streamlit.secrets['LINKEDIN_REDIRECT_URL'])
-    webbrowser.open(url)
+    nav_script = """
+        <meta http-equiv="refresh" content="0; url='%s'">
+    """ % (url)
+    streamlit.write(nav_script, unsafe_allow_html=True)
 
 #Post to LinkedIn
 def postToLinkedIn():
