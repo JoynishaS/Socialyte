@@ -117,13 +117,14 @@ imageModificationChoice = streamlit.radio(
 #Switch Statement for Image Generation Options
 match imageModificationChoice:
     case "***Generate Image by Text***":
+        streamlit.session_state['uploaded_image_url'] = ""
         image_request = streamlit.text_input("Enter text for the type of image you want","A cute white bunny with blue eyes")
         streamlit.session_state['image_request'] = image_request
     case "***Upload your own Image***":
         uploaded_file = streamlit.file_uploader("Choose a 1024x1024 png image",type = ['png'])
         if uploaded_file is not None:
             streamlit.session_state['image'] = uploaded_file
-            
+
             #Make a temp file so we can get the path because streamlit fileuploader does not return path
             temp_dir = tempfile.mkdtemp()
             path = os.path.join(temp_dir, uploaded_file.name)

@@ -115,7 +115,7 @@ def initializeImageUpload():
 
 def uploadImage():
     url = streamlit.session_state['uploadURL']
-    if 'uploaded_image_url' not in streamlit.session_state:
+    if streamlit.session_state['uploaded_image_url']!="":
         download_image(streamlit.session_state['image'])
         image = open("image.jpg","rb").read()
     else:
