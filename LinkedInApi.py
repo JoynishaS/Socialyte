@@ -115,17 +115,10 @@ def initializeImageUpload():
 
 def uploadImage():
     url = streamlit.session_state['uploadURL']
-    with open('pic1.jpg', 'wb') as handle:
+    with open('image.jpg', 'wb') as handle:
         response = requests.get(url, stream=True)
+        streamlit.write(response)
 
-        if not response.ok:
-            print(response)
-
-        for block in response.iter_content(1024):
-            if not block:
-                break
-
-            handle.write(block)
 
     ''' headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
