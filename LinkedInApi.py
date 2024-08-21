@@ -1,8 +1,10 @@
+import urllib
 import streamlit
 import requests
 import json
 from PIL import Image
-import urllib.request
+from io import BytesIO
+
 
 
 
@@ -116,8 +118,10 @@ def initializeImageUpload():
 
 def uploadImage():
     url = streamlit.session_state['uploadURL']
-    urllib.request.urlretrieve(url, "image.png")
-    img = Image.open("image.png")
+    with urllib.request.urlopen(url) as my_url_res:
+        my_img_data = my_url_res.read()
+
+    img = Image.open(BytesIO(my_img_data))
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
