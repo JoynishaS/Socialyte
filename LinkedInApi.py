@@ -120,6 +120,7 @@ def uploadImage():
         for block in response.iter_content(1024):
             if not block:
                 break
+            streamlit.write(handle)
             streamlit.write(handle.write(block))
 
 
