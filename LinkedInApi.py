@@ -50,6 +50,7 @@ def postToLinkedIn():
         streamlit.session_state['imageURN'] = imageData['value']['image']
         streamlit.write(streamlit.session_state['uploadURL'])
         streamlit.write(streamlit.session_state['imageURN'])
+        uploadImage()
     url = "https://api.linkedin.com/rest/posts"
     body = json.dumps({
       "author": "urn:li:person:%s"%(authorID),
@@ -111,6 +112,18 @@ def initializeImageUpload():
     return data
 
 def uploadImage():
+    url = streamlit.session_state['uploadURL']
+    headers = {
+        'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
+    }
     with open(streamlit.session_state['image'], 'rb') as f:
         if "uploadURL" is streamlit.session_state['uploadURL'] and 'imageURN' in streamlit.session_state:
-            requests.put(streamlit.session_state['uploadURL'], data=f)
+            response = requests.put(
+            url,
+            headers = headers,
+            data=f
+            )
+            data = response
+            return data
+        else:
+            streamlit.write("We experienced an error with the call!")
