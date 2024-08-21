@@ -120,12 +120,13 @@ def uploadImage():
     open(dl_image, 'wb').write(r.content)
 
     image = open(dl_image,"rb").read()
+    streamlit.write(image)
 
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
 
-    if "uploadURL" in streamlit.session_state['uploadURL'] and 'imageURN' in streamlit.session_state:
+    if "uploadURL" in streamlit.session_state and 'imageURN' in streamlit.session_state:
         response = requests.put(
             url,
             headers=headers,
