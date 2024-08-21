@@ -44,14 +44,15 @@ def getAuthorID():
 def postToLinkedIn():
     authorID = getAuthorID()
     if 'authorID' not in streamlit.session_state:
-        streamlit.write(streamlit.session_state['image'])
         streamlit.session_state['authorID'] = authorID
+
         imageData = initializeImageUpload()
+
         streamlit.session_state['uploadURL'] = imageData['value']['uploadUrl']
         streamlit.session_state['imageURN'] = imageData['value']['image']
-        streamlit.write(streamlit.session_state['uploadURL'])
-        streamlit.write(streamlit.session_state['imageURN'])
+
         uploadImage()
+
     url = "https://api.linkedin.com/rest/posts"
     body = json.dumps({
       "author": "urn:li:person:%s"%(authorID),
@@ -129,7 +130,8 @@ def uploadImage():
         streamlit.write(data.status_code)
     else:
         streamlit.write("We experienced an error with the call!")
-
+        
+#images have to be local for linkedin api so had to add this
 def download_image(url):
     response = requests.get(url)
 
@@ -141,5 +143,5 @@ def download_image(url):
     with open(filename, 'wb') as file:
         file.write(response.content)
 
-    streamlit.write("Image downloaded successfully!")
+    streamlit.write("Image uploaded successfully!")
 
