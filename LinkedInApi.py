@@ -1,6 +1,7 @@
 import streamlit
 import requests
 import json
+from PIL import Image
 
 
 
@@ -114,10 +115,11 @@ def initializeImageUpload():
 
 def uploadImage():
     url = streamlit.session_state['uploadURL']
+    im = Image.open(requests.get(url, stream=True).raw)
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
-    with open(streamlit.session_state['image'], 'rb') as f:
+    with open(im, 'rb') as f:
         if "uploadURL" is streamlit.session_state['uploadURL'] and 'imageURN' in streamlit.session_state:
             response = requests.put(
             url,
