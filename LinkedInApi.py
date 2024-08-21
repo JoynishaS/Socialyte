@@ -112,17 +112,13 @@ def initializeImageUpload():
     streamlit.write(data)
     return data
 
-
 def uploadImage():
     download_image(streamlit.session_state['uploadURL'])
-
     url = streamlit.session_state['uploadURL']
     image = open("image.jpg","rb").read()
-
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
-
     if "uploadURL" in streamlit.session_state and 'imageURN' in streamlit.session_state:
         response = requests.put(
             url,
