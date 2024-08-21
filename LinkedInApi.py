@@ -113,9 +113,9 @@ def initializeImageUpload():
     return data
 
 def uploadImage():
-    #download_image(streamlit.session_state['uploadURL'])
+    download_image(streamlit.session_state['image'])
     url = streamlit.session_state['uploadURL']
-    image = open(streamlit.session_state['image'],"rb").read()
+    image = open("image.jpg","rb").read()
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
