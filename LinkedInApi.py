@@ -39,6 +39,22 @@ def getAuthorID():
     data = response.json()
     return data['sub']
 
+#Refresh Token since Streamlit reload scripts everytime a user interacts
+def refreshToken():
+    url = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(
+        streamlit.secrets['LINKEDIN_CLIENT_ID'], streamlit.secrets['LINKEDIN_REDIRECT_URL'])
+    headers = {
+    }
+    body = {}
+    response = requests.get(
+        url,
+        headers = headers,
+        data = body
+    )
+    if response.status_code != 200:
+        raise Exception("Non-200 response: " + str(response.text))
+    streamlit.write(response.text)
+
 #Post to LinkedIn
 def postToLinkedIn():
     authorID = getAuthorID()

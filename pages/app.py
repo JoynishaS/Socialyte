@@ -14,23 +14,6 @@ client = OpenAI(
     api_key = streamlit.secrets['OPENAI_API_KEY'],
     project='proj_fqZ8kTAr98ZSgzH5cEdb8mGW'
 )
-#Refresh Token since Streamlit reload scripts everytime a user interacts
-def refreshToken():
-    url = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(
-        streamlit.secrets['LINKEDIN_CLIENT_ID'], streamlit.secrets['LINKEDIN_REDIRECT_URL'])
-    headers = {
-    }
-    body = {}
-    response = requests.get(
-        url,
-        headers = headers,
-        data = body
-    )
-    if response.status_code != 200:
-        raise Exception("Non-200 response: " + str(response.text))
-
-
-refreshToken()
 
 #Only run the function once to get the access code!
 if 'linkedInToken' not in streamlit.session_state:
@@ -191,6 +174,7 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
         streamlit.write(streamlit.session_state['key'])
         if(platform_request == "LINKEDIN"):
             LinkedInApi.postToLinkedIn()
+            LinkedInApi.refreshToken()
 
 
 
