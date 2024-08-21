@@ -150,11 +150,11 @@ if streamlit.button("Submit", type="primary"):
         language_input = inputDefinition(translation_request)
         streamlit.session_state['input'] = language_input
         localized_text = graniteTextLocalization(text_returned)['results'][0]['generated_text']
-        streamlit.text_area("Your Localized Post", localized_text)
-        streamlit.session_state['key'] = localized_text
+        language_text = streamlit.text_area("Your Localized Post", localized_text)
+        streamlit.session_state['key'] = language_text
     else:
-        streamlit.text_area("Your Post", text_returned)
-        streamlit.session_state['key'] = text_returned
+        final_post_text = streamlit.text_area("Your Post", text_returned)
+        streamlit.session_state['key'] = final_post_text
 
     #Get image url
     imageWorkFlow()
