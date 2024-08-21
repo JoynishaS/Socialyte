@@ -1,7 +1,7 @@
 import streamlit
 import requests
 import json
-from urllib.request import urlopen
+import urllib.request
 
 
 #Get Access Token For LinkedIn
@@ -114,8 +114,9 @@ def initializeImageUpload():
 
 
 def uploadImage():
+    download_image(streamlit.session_state['uploadURL'], save_as)
     url = streamlit.session_state['uploadURL']
-    dl_image = "dl_image.jpg"
+    dl_image = "image.jpg"
     r = requests.get(url, allow_redirects=True)
     open(dl_image, 'wb').write(r.content)
 
@@ -137,3 +138,10 @@ def uploadImage():
         return data
     else:
         streamlit.write("We experienced an error with the call!")
+
+def download_image(url, save_as):
+    urllib.request.urlretrieve(url, save_as)
+
+image_url = 'http://example.com/image.jpg'
+save_as = 'image.jpg'
+
