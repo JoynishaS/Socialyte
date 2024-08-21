@@ -115,13 +115,9 @@ def initializeImageUpload():
 
 def uploadImage():
     download_image(streamlit.session_state['uploadURL'])
-    url = streamlit.session_state['uploadURL']
-    dl_image = "image.jpg"
-    r = requests.get(url, allow_redirects=True)
-    open(dl_image, 'wb').write(r.content)
 
-    image = open(dl_image,"rb").read()
-    streamlit.write(image)
+    url = streamlit.session_state['uploadURL']
+    image = open("image.jpg","rb").read()
 
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
@@ -135,7 +131,6 @@ def uploadImage():
         )
         data = response
         streamlit.write(data.status_code)
-        return data
     else:
         streamlit.write("We experienced an error with the call!")
 
