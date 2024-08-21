@@ -115,13 +115,9 @@ def initializeImageUpload():
 
 def uploadImage():
     url = streamlit.session_state['uploadURL']
-    with open('image.jpg', 'wb') as handle:
-        response = requests.get(url, stream=True)
-        for block in response.iter_content(1024):
-            if not block:
-                break
-            streamlit.write(handle)
-            streamlit.write(handle.write(block))
+    dl_image = "dl_image.jpg"
+    r = requests.get(url, allow_redirects=True)
+    open(dl_image, 'wb').write(r.content)
 
 
     ''' headers = {
