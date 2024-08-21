@@ -114,7 +114,7 @@ def initializeImageUpload():
 
 
 def uploadImage():
-    download_image(streamlit.session_state['uploadURL'], save_as)
+    download_image(streamlit.session_state['uploadURL'])
     url = streamlit.session_state['uploadURL']
     dl_image = "image.jpg"
     r = requests.get(url, allow_redirects=True)
@@ -139,9 +139,16 @@ def uploadImage():
     else:
         streamlit.write("We experienced an error with the call!")
 
-def download_image(url, save_as):
-    urllib.request.urlretrieve(url, save_as)
+def download_image(url):
+    response = requests.get(url)
 
-image_url = 'http://example.com/image.jpg'
-save_as = 'image.jpg'
+    if response.status_code != 200:
+        print("Failed to download image!")
+        exit()
+
+    filename = "image.jpg"
+    with open(filename, 'wb') as file:
+        file.write(response.content)
+
+    print("Image downloaded successfully!")
 
