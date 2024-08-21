@@ -44,6 +44,7 @@ def getAuthorID():
 def postToLinkedIn():
     authorID = getAuthorID()
     if 'authorID' is not streamlit.session_state:
+        streamlit.write(streamlit.session_state['image'])
         streamlit.session_state['authorID'] = authorID
         imageData = initializeImageUpload()
         streamlit.session_state['uploadURL'] = imageData['value']['uploadUrl']
