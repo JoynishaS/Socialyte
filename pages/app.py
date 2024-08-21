@@ -117,11 +117,11 @@ imageModificationChoice = streamlit.radio(
 #Switch Statement for Image Generation Options
 match imageModificationChoice:
     case "***Generate Image by Text***":
-        uploadMyOwnImage = False
+        streamlit.session_state['uploadMyOwnImage'] = False
         image_request = streamlit.text_input("Enter text for the type of image you want","A cute white bunny with blue eyes")
         streamlit.session_state['image_request'] = image_request
     case "***Upload your own Image***":
-        uploadMyOwnImage = True
+        streamlit.session_state['uploadMyOwnImage'] = True
         uploaded_file = streamlit.file_uploader("Choose a 1024x1024 png image",type = ['png'])
         if uploaded_file is not None:
             streamlit.session_state['image'] = uploaded_file
