@@ -1,7 +1,7 @@
 import streamlit
 import requests
 import json
-from  pages import app
+from pages import app
 
 
 #Get Access Token For LinkedIn
