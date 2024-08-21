@@ -30,7 +30,7 @@ def refreshToken():
         raise Exception("Non-200 response: " + str(response.text))
 
 
-#refreshToken()
+refreshToken()
 
 #Only run the function once to get the access code!
 if 'linkedInToken' not in streamlit.session_state:
