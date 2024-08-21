@@ -46,6 +46,7 @@ def postToLinkedIn():
     if 'authorID' is not streamlit.session_state:
         streamlit.session_state['authorID'] = authorID
         streamlit.session_state['uploadURL'] = initializeImageUpload()
+        streamlit.write(streamlit.session_state['uploadURL'])
     url = "https://api.linkedin.com/rest/posts"
     body = json.dumps({
       "author": "urn:li:person:%s"%(authorID),
