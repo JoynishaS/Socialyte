@@ -100,7 +100,7 @@ def initializeImageUpload():
 
     data = response.json()
     streamlit.write(data)
-    return data['uploadUrl']
+    return data['value']['uploadUrl']
 
 def uploadImage():
     with open(streamlit.session_state['image'], 'rb') as f:
