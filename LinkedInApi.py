@@ -122,14 +122,16 @@ def uploadImage():
     with urllib.request.urlopen(req) as response:
         with open('&amp;quot;image.jpg&amp;quot;', 'wb') as f:
             f.write(response.read())
-            if "uploadURL" is streamlit.session_state['uploadURL'] and 'imageURN' in streamlit.session_state:
-                response = requests.put(
-                    url,
-                    headers=headers,
-                    data=f
-                )
-                data = response
-                return data
-            else:
-                streamlit.write("We experienced an error with the call!")
+            print(f)
 
+
+'''if "uploadURL" is streamlit.session_state['uploadURL'] and 'imageURN' in streamlit.session_state:
+    response = requests.put(
+        url,
+        headers=headers,
+        data=f
+    )
+    data = response
+    return data
+else:
+    streamlit.write("We experienced an error with the call!")'''
