@@ -29,6 +29,9 @@ def refreshToken():
     if response.status_code != 200:
         raise Exception("Non-200 response: " + str(response.text))
 
+
+refreshToken()
+
 #Only run the function once to get the access code!
 if 'linkedInToken' not in streamlit.session_state:
     streamlit.session_state['linkedInToken']  = LinkedInApi.getAccessTokenLinkedIn()
@@ -188,7 +191,6 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
         streamlit.write(streamlit.session_state['key'])
         if(platform_request == "LINKEDIN"):
             LinkedInApi.postToLinkedIn()
-            refreshToken()
 
 
 
