@@ -119,7 +119,6 @@ match imageModificationChoice:
     case "***Generate Image by Text***":
         if 'uploaded_image_url' in streamlit.session_state:
             del streamlit.session_state['uploaded_image_url']
-        streamlit.session_state['uploaded_image_url'] = ""
         image_request = streamlit.text_input("Enter text for the type of image you want","A cute white bunny with blue eyes")
         streamlit.session_state['image_request'] = image_request
     case "***Upload your own Image***":
