@@ -45,8 +45,11 @@ def postToLinkedIn():
     authorID = getAuthorID()
     if 'authorID' is not streamlit.session_state:
         streamlit.session_state['authorID'] = authorID
-        streamlit.session_state['uploadURL'] = initializeImageUpload()
+        imageData = initializeImageUpload()
+        streamlit.session_state['uploadURL'] = imageData['value']['uploadUrl']
+        streamlit.session_state['imageURN'] = imageData['value']['image']
         streamlit.write(streamlit.session_state['uploadURL'])
+        streamlit.write(streamlit.session_state['imageURN'])
     url = "https://api.linkedin.com/rest/posts"
     body = json.dumps({
       "author": "urn:li:person:%s"%(authorID),
@@ -57,6 +60,12 @@ def postToLinkedIn():
         "targetEntities": [],
         "thirdPartyDistributionChannels": []
       },
+        "content": {
+            "media": {
+                "title": "",
+                "id": "%s"%streamlit.session_state['imageURN']
+            }
+        },
       "lifecycleState": "PUBLISHED",
       "isReshareDisabledByAuthor": False
 })
@@ -96,14 +105,12 @@ def initializeImageUpload():
         headers=headers,
         data=body
     )
-    #if response.status_code != 200:
-        #raise Exception("Non-200 response: " + str(response.text))
 
     data = response.json()
     streamlit.write(data)
-    return data['value']['uploadUrl']
+    return data
 
 def uploadImage():
     with open(streamlit.session_state['image'], 'rb') as f:
-        if "uploadURL" is streamlit.session_state['uploadURL']:
-            requests.post('http://some.url/streamed', data=f)
+        if "uploadURL" is streamlit.session_state['uploadURL'] and 'imageURN' in streamlit.session_state:
+            requests.put(streamlit.session_state['uploadURL'], data=f)
