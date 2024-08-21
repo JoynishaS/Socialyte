@@ -1,7 +1,7 @@
 import streamlit
 import requests
 import json
-from pages import app
+import pages.app
 
 
 #Get Access Token For LinkedIn
@@ -115,10 +115,10 @@ def initializeImageUpload():
 
 def uploadImage():
     url = streamlit.session_state['uploadURL']
-    if app.uploadMyOwnImage == False:
+    if pages.app.uploadMyOwnImage == False:
         download_image(streamlit.session_state['image'])
         image = open("image.jpg","rb").read()
-    if app.uploadMyOwnImage:
+    if pages.app.uploadMyOwnImage:
         image = open(streamlit.session_state['uploaded_image_url'], "rb").read()
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
