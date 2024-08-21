@@ -3,9 +3,6 @@ import streamlit
 import requests
 import json
 from PIL import Image
-from io import BytesIO
-
-
 
 
 #Get Access Token For LinkedIn
@@ -118,10 +115,8 @@ def initializeImageUpload():
 
 def uploadImage():
     url = streamlit.session_state['uploadURL']
-    with urllib.request.urlopen(url) as my_url_res:
-        my_img_data = my_url_res.read()
+    img = Image.open(requests.get(url, stream=True).raw)
 
-    img = Image.open(BytesIO(my_img_data))
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
