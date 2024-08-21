@@ -43,7 +43,7 @@ def getAuthorID():
 #Post to LinkedIn
 def postToLinkedIn():
     authorID = getAuthorID()
-    if 'authorID' is not streamlit.session_state:
+    if 'authorID' not in streamlit.session_state:
         streamlit.write(streamlit.session_state['image'])
         streamlit.session_state['authorID'] = authorID
         imageData = initializeImageUpload()
@@ -125,7 +125,7 @@ def uploadImage():
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
 
-    if "uploadURL" is streamlit.session_state['uploadURL'] and 'imageURN' in streamlit.session_state:
+    if "uploadURL" in streamlit.session_state['uploadURL'] and 'imageURN' in streamlit.session_state:
         response = requests.put(
             url,
             headers=headers,
