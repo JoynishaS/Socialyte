@@ -1,7 +1,7 @@
 import streamlit
 import requests
 import json
-import urllib.request
+from urllib.request import urlopen
 
 
 #Get Access Token For LinkedIn
@@ -115,17 +115,15 @@ def initializeImageUpload():
 
 def uploadImage():
     url = streamlit.session_state['uploadURL']
-    req = urllib.request.Request(url)
-    headers = {
+    with urlopen(url) as response:
+        body = response.read()
+        streamlit.write(body)
+
+    ''' headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
-    with urllib.request.urlopen(req) as response:
-        with open('&amp;quot;image.jpg&amp;quot;', 'wb') as f:
-            f.write(response.read())
-            print(f)
 
-
-'''if "uploadURL" is streamlit.session_state['uploadURL'] and 'imageURN' in streamlit.session_state:
+if "uploadURL" is streamlit.session_state['uploadURL'] and 'imageURN' in streamlit.session_state:
     response = requests.put(
         url,
         headers=headers,
