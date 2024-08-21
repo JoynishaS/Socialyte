@@ -120,6 +120,7 @@ match imageModificationChoice:
         uploaded_file = streamlit.file_uploader("Choose a 1024x1024 png image",type = ['png'])
         if uploaded_file is not None:
             streamlit.session_state['image'] = uploaded_file
+            streamlit.session_state['uploaded_image_url'] = uploaded_file
 
 #Input Field for User to enter their request to Open AI for Text Generation
 topic_request = streamlit.text_input("Enter a topic for your post","Write a post for Twitter about the history of White Bunnies with Blue Eyes")

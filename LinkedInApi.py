@@ -114,9 +114,12 @@ def initializeImageUpload():
     return data
 
 def uploadImage():
-    download_image(streamlit.session_state['image'])
     url = streamlit.session_state['uploadURL']
-    image = open("image.jpg","rb").read()
+    if 'uploaded_image_url' not in streamlit.session_state:
+        download_image(streamlit.session_state['image'])
+        image = open("image.jpg","rb").read()
+    else:
+        image = open(streamlit.session_state['uploaded_image_url'], "rb").read()
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
     }
@@ -130,7 +133,7 @@ def uploadImage():
         streamlit.write(data.status_code)
     else:
         streamlit.write("We experienced an error with the call!")
-        
+
 #images have to be local for linkedin api so had to add this
 def download_image(url):
     response = requests.get(url)
