@@ -1,7 +1,6 @@
 import streamlit
 import requests
 import json
-import webbrowser
 
 
 #Get Access Token For LinkedIn

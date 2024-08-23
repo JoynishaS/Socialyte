@@ -3,7 +3,6 @@ import os
 import streamlit
 from openai import OpenAI
 import requests
-import json
 import LinkedInApi
 import tempfile
 

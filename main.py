@@ -1,5 +1,6 @@
 import base64
 import streamlit
+import TwitterApi
 from pathlib import Path
 
 
@@ -17,6 +18,11 @@ url = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client
     streamlit.secrets['LINKEDIN_CLIENT_ID'], streamlit.secrets['LINKEDIN_REDIRECT_URL'])
 html = f"<a href='{url}'><img src='data:image/png;base64,{image_base64}'></a>"
 streamlit.markdown(html, unsafe_allow_html=True)
+
+#Twitter Button!
+if streamlit.button("Login to Twitter", type="primary"):
+    TwitterApi.requestTwitterToken()
+
 
 
 
