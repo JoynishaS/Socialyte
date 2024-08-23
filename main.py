@@ -26,14 +26,14 @@ streamlit.markdown(html, unsafe_allow_html=True)
 #Twitter Code
 consumer_key = streamlit.secrets['TWITTER_CONSUMER_KEY']
 consumer_secret = streamlit.secrets['TWITTER_CONSUMER_SECRET']
-#access_token = streamlit.secrets['TWITTER_ACCESS_TOKEN']
-#token_secret = streamlit.secrets['TWITTER_TOKEN_SECRET']
+access_token = streamlit.secrets['TWITTER_ACCESS_TOKEN']
+token_secret = streamlit.secrets['TWITTER_TOKEN_SECRET']
 
-oauth = OAuth1Session(client_key=consumer_key, client_secret=consumer_secret)
+oauth = OAuth1Session(client_key=consumer_key, client_secret=consumer_secret,resource_owner_key= access_token,resource_owner_secret= token_secret,callback_uri="https://socialyte.streamlit.app/app")
 
 # Get request token
 def requestTwitterToken():
-    request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=https://socialyte.streamlit.app/app&x_auth_access_type=write"
+    request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"
 
     try:
         fetch_response = oauth.fetch_request_token(request_token_url)
