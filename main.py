@@ -24,18 +24,22 @@ html = f"<a href='{url}'><img src='data:image/png;base64,{image_base64}'></a>"
 streamlit.markdown(html, unsafe_allow_html=True)
 
 #Twitter Code
-consumer_key = streamlit.secrets['TWITTER_CLIENT_KEY']
-client_secret = streamlit.secrets['TWITTER_CLIENT_SECRET']
-oauth = OAuth1Session(consumer_key, client_secret=client_secret)
+consumer_key = streamlit.secrets['TWITTER_CONSUMER_KEY']
+consumer_secret = streamlit.secrets['TWITTER_CONSUMER_SECRET']
+access_token = streamlit.secrets['TWITTER_ACCESS_TOKEN']
+token_secret = streamlit.secrets['TWITTER_TOKEN_SECRET']
+
+oauth = OAuth1Session(client_key=consumer_key, client_secret=consumer_secret)
 
 # Get request token
 def requestTwitterToken():
     request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=https://socialyte.streamlit.app/app&x_auth_access_type=write"
 
     try:
+
         fetch_response = oauth.fetch_request_token(request_token_url)
-       #streamlit.session_state['oauth_token'] = fetch_response.get("oauth_token")
-        #streamlit.session_state['oauth_token_secret'] = fetch_response.get("oauth_token_secret")
+        streamlit.session_state['oauth_token'] = fetch_response.get("oauth_token")
+        streamlit.session_state['oauth_token_secret'] = fetch_response.get("oauth_token_secret")
         streamlit.write("Fetch Token")
         #streamlit.write("Got OAuth token: %s" % streamlit.session_state['oauth_token'])
     except ValueError:
@@ -43,7 +47,7 @@ def requestTwitterToken():
 
 
 # Get authorization
-def authTwitterUser():
+'''def authTwitterUser():
     base_authorization_url = "https://api.twitter.com/oauth/authorize"
     authorization_url = oauth.authorization_url(base_authorization_url)
     print("Please go here and authorize: %s" % authorization_url)
@@ -60,7 +64,7 @@ def getAccessToken():
     oauth_tokens = oauth.fetch_access_token(access_token_url)
 
     streamlit.session_state['twitter_access_token'] = oauth_tokens["oauth_token"]
-    streamlit.session_state['twitter_access_token_secret'] = oauth_tokens["oauth_token_secret"]
+    streamlit.session_state['twitter_access_token_secret'] = oauth_tokens["oauth_token_secret"]'''
 
 #Twitter Button!
 if streamlit.button("Login to Twitter", type="primary"):
