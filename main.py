@@ -40,7 +40,7 @@ def requestTwitterToken():
         streamlit.session_state['oauth_token'] = fetch_response.get("oauth_token")
         streamlit.session_state['oauth_token_secret'] = fetch_response.get("oauth_token_secret")
         streamlit.write("Fetch Token")
-        #streamlit.write("Got OAuth token: %s" % streamlit.session_state['oauth_token'])
+        streamlit.write("Got OAuth token: %s" % streamlit.session_state['oauth_token'])
     except ValueError:
         streamlit.write("There may have been an issue with the consumer_key or consumer_secret you entered.")
 
