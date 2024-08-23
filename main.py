@@ -23,7 +23,6 @@ def authTwitterUser():
     base_authorization_url = "https://api.twitter.com/oauth/authorize"
     authorization_url = oauth.authorization_url(base_authorization_url)
     streamlit.session_state['twitter_auth_url'] = authorization_url
-    streamlit.write("Please go here and authorize: %s" % authorization_url)
 
 # Get request token
 def requestTwitterToken():
@@ -33,7 +32,6 @@ def requestTwitterToken():
         fetch_response = oauth.fetch_request_token(request_token_url)
         streamlit.session_state['oauth_token'] = fetch_response.get("oauth_token")
         streamlit.session_state['oauth_token_secret'] = fetch_response.get("oauth_token_secret")
-        streamlit.write("Fetch Token")
         authTwitterUser()
     except ValueError:
         streamlit.write("There may have been an issue with the consumer_key or consumer_secret you entered.")
