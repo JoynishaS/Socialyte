@@ -18,6 +18,13 @@ token_secret = streamlit.secrets['TWITTER_TOKEN_SECRET']
 
 oauth = OAuth1Session(client_key=consumer_key, client_secret=consumer_secret,resource_owner_key= access_token,resource_owner_secret= token_secret,callback_uri="https://socialyte.streamlit.app/app")
 
+# Get authorization
+def authTwitterUser():
+    base_authorization_url = "https://api.twitter.com/oauth/authorize"
+    authorization_url = oauth.authorization_url(base_authorization_url)
+    streamlit.secrets['twitter_auth_url'] = authorization_url
+    streamlit.write("Please go here and authorize: %s" % authorization_url)
+    
 # Get request token
 def requestTwitterToken():
     request_token_url = "https://api.twitter.com/oauth/request_token"
@@ -34,12 +41,6 @@ def requestTwitterToken():
 #Run Twitter Auth in the background
 requestTwitterToken()
 
-# Get authorization
-def authTwitterUser():
-    base_authorization_url = "https://api.twitter.com/oauth/authorize"
-    authorization_url = oauth.authorization_url(base_authorization_url)
-    streamlit.secrets['twitter_auth_url'] = authorization_url
-    streamlit.write("Please go here and authorize: %s" % authorization_url)
 
 #Linkedin Code
 def img_to_bytes(img_path):
