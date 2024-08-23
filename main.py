@@ -39,9 +39,8 @@ def requestTwitterToken():
         streamlit.write("Fetch Token")
         streamlit.write("Got OAuth token: %s" % streamlit.session_state['oauth_token'])
     except ValueError:
-        print(
-            "There may have been an issue with the consumer_key or consumer_secret you entered."
-        )
+        streamlit.write("There may have been an issue with the consumer_key or consumer_secret you entered.")
+
 
 # Get authorization
 def authTwitterUser():
