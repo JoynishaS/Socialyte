@@ -16,7 +16,7 @@ client = OpenAI(
 
 #Only run the function once to get the access code!
 if 'linkedInToken' not in streamlit.session_state:
-    if streamlit.query_params.code is not None:
+    if "code" in streamlit.query_params:
         streamlit.session_state['linkedInToken']  = LinkedInApi.getAccessTokenLinkedIn()
 
 #Function to send user request for images to Open AI
