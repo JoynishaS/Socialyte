@@ -31,9 +31,7 @@ def postToTwitter():
     # Make the request
     oauth = OAuth1Session(
         client_key=consumer_key,
-        client_secret=consumer_secret,
         resource_owner_key=streamlit.session_state['twitter_access_token'] ,
-        verifier=streamlit.session_state['twitter_access_token_secret'],
     )
 
     # Making the request
