@@ -71,7 +71,7 @@ def uploadImage():
         "https://upload.twitter.com/1.1/media/upload.json",
         files=[('media',image)])
 
-    data = response
+    data = response.json()
     streamlit.write(data.status_code)
     streamlit.write(data.text)
 
