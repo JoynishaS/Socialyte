@@ -11,8 +11,8 @@ def getAccessToken():
     access_token_url = "https://api.twitter.com/oauth/access_token"
     oauth = OAuth1Session(
         client_key=consumer_key,
-        oauth_token=streamlit.query_params.oauth_token,
-        oauth_verifier=streamlit.query_params.oauth_verifier
+        resource_owner_key=streamlit.query_params.oauth_token,
+        verifier=streamlit.query_params.oauth_verifier
     )
     oauth_tokens = oauth.fetch_access_token(access_token_url)
 
