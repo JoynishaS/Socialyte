@@ -27,7 +27,7 @@ def postToTwitter():
     payload = {"text": streamlit.session_state['key'],
                "media": {"media_ids": [str(imageID["media_id"])]}
                }
-
+    streamlit.write(payload)
     # Make the request
     oauth = OAuth1Session(
         consumer_key,
