@@ -27,7 +27,7 @@ def postToTwitter():
     streamlit.write(imageID['media_id'])
     streamlit.write(streamlit.session_state['twitter_access_token'])
     streamlit.write(streamlit.session_state['twitter_access_token_secret'])
-    payload = {"status": streamlit.session_state['key'],
+    payload = {"text": streamlit.session_state['key'],
                "media": {"media_ids": [str(imageID['media_id'])]}
                }
     streamlit.write(payload)
@@ -39,7 +39,7 @@ def postToTwitter():
 
     # Making the request
     response = oauth.post(
-        "https://api.x.com/1.1/statuses/update.json",
+        "https://api.twitter.com/2/tweets",
         json=payload,
     )
     streamlit.write(response.status_code)
