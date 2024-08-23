@@ -19,6 +19,13 @@ def getAccessToken():
     streamlit.session_state['twitter_access_token'] = oauth_tokens["oauth_token"]
     streamlit.session_state['twitter_access_token_secret'] = oauth_tokens["oauth_token_secret"]
 
+#Refresh Token since Streamlit reload scripts everytime a user interacts
+def refreshToken():
+    url = streamlit.session_state['twitter_auth_url']
+    nav_script = """
+        <meta http-equiv="refresh" content="0; url='%s'">
+    """ % (url)
+    streamlit.write(nav_script, unsafe_allow_html=True)
 
 # Be sure to add replace the text of the with the text you wish to Tweet. You can also add parameters to post polls, quote Tweets, Tweet with reply settings, and Tweet to Super Followers in addition to other features.
 def postToTwitter():
