@@ -21,9 +21,10 @@ def getAccessToken():
     streamlit.session_state['twitter_access_token_secret'] = oauth_tokens["oauth_token_secret"]
 
 # Be sure to add replace the text of the with the text you wish to Tweet. You can also add parameters to post polls, quote Tweets, Tweet with reply settings, and Tweet to Super Followers in addition to other features.
-def postToTwitter(contentText, image):
-    payload = {"text": contentText,
-               "media": {"media_ids": ["%s"]%image}
+def postToTwitter():
+    imageID = uploadImage()
+    payload = {"text": streamlit.session_state['key'],
+               "media": {"media_ids": ["%s"]%imageID["media_id"]}
                }
 
     # Make the request
@@ -66,17 +67,17 @@ def uploadImage():
         resource_owner_secret=streamlit.session_state['twitter_access_token_secret'],
     )
 
-    if "uploadURL" in streamlit.session_state and 'imageURN' in streamlit.session_state:
-        # Making the request
-        response = oauth.post(
-            "https://upload.twitter.com/1.1/media/upload.json",
-            media=image
-        )
+    response = oauth.post(
+        "https://upload.twitter.com/1.1/media/upload.json",
+        media=image
+    )
 
-        data = response
-        streamlit.write(data.status_code)
-    else:
+    data = response
+    streamlit.write(data.status_code)
+
+    if response.status_code != 201:
         streamlit.write("We experienced an error with the call!")
+    return data
 
 #images have to be local for linkedin api so had to add this
 def download_image(url):

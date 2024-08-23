@@ -5,6 +5,7 @@ from openai import OpenAI
 import requests
 import LinkedInApi
 import tempfile
+import TwitterApi
 
 
 #Open AI Client Authorization
@@ -175,6 +176,11 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
         if(platform_request == "LINKEDIN"):
             LinkedInApi.postToLinkedIn()
             LinkedInApi.refreshToken()
+
+        elif (platform_request == "TWITTER"):
+            TwitterApi.postToTwitter()
+
+
 
 
 
