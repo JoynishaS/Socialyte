@@ -36,7 +36,6 @@ def requestTwitterToken():
     request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=https://socialyte.streamlit.app/app&x_auth_access_type=write"
 
     try:
-
         fetch_response = oauth.fetch_request_token(request_token_url)
         streamlit.session_state['oauth_token'] = fetch_response.get("oauth_token")
         streamlit.session_state['oauth_token_secret'] = fetch_response.get("oauth_token_secret")
@@ -47,7 +46,7 @@ def requestTwitterToken():
 
 
 # Get authorization
-'''def authTwitterUser():
+def authTwitterUser():
     base_authorization_url = "https://api.twitter.com/oauth/authorize"
     authorization_url = oauth.authorization_url(base_authorization_url)
     print("Please go here and authorize: %s" % authorization_url)
@@ -57,14 +56,14 @@ def getAccessToken():
     access_token_url = "https://api.twitter.com/oauth/access_token"
     oauth = OAuth1Session(
         consumer_key,
-        client_secret=client_secret,
+        #client_secret=client_secret,
         resource_owner_key=streamlit.session_state['oauth_token'],
         resource_owner_secret=streamlit.session_state['oauth_token_secret']
     )
     oauth_tokens = oauth.fetch_access_token(access_token_url)
 
     streamlit.session_state['twitter_access_token'] = oauth_tokens["oauth_token"]
-    streamlit.session_state['twitter_access_token_secret'] = oauth_tokens["oauth_token_secret"]'''
+    #streamlit.session_state['twitter_access_token_secret'] = oauth_tokens["oauth_token_secret"]'
 
 #Twitter Button!
 if streamlit.button("Login to Twitter", type="primary"):
