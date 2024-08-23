@@ -72,8 +72,6 @@ def uploadImage():
         files=[('media',image)])
 
     data = response.json()
-    streamlit.write(data.status_code)
-    streamlit.write(data.text)
 
     if response.status_code != 201:
         streamlit.write("We experienced an error with the call!")
