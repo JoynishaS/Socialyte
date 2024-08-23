@@ -69,7 +69,7 @@ def uploadImage():
 
     response = oauth.post(
         "https://upload.twitter.com/1.1/media/upload.json",
-        media=image
+        files=image
     )
 
     data = response
