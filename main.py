@@ -57,7 +57,7 @@ streamlit.markdown(html, unsafe_allow_html=True)
 
 #Twitter Button!
 image_base64 = img_to_bytes("twitter_button.jpg")
-url = streamlit.secrets['twitter_auth_url']
+url = streamlit.session_state['twitter_auth_url']
 html = f"<a href='{url}'><img src='data:image/png;base64,{image_base64}'></a>"
 streamlit.markdown(html, unsafe_allow_html=True)
 
