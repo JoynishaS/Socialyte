@@ -25,7 +25,7 @@ def postToTwitter():
     imageID = uploadImage()
     streamlit.write(imageID)
     payload = {"text": streamlit.session_state['key'],
-               "media": {"media_ids": [imageID["media_id"]]}
+               "media": {"media_ids": [str(imageID["media_id"])]}
                }
 
     # Make the request
