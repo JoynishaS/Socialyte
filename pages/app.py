@@ -180,7 +180,8 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
 
         elif (platform_request == "TWITTER"):
             if 'twitter_access_returned' not in streamlit.session_state:
-                TwitterApi.getAccessToken()
+                    TwitterApi.getAccessToken()
+                    streamlit.session_state['twitter_access_returned'] = True
             TwitterApi.postToTwitter()
             TwitterApi.refreshToken()
 
