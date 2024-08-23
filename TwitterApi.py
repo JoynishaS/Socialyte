@@ -15,6 +15,7 @@ def requestTwitterToken():
         fetch_response = oauth.fetch_request_token(request_token_url)
         streamlit.session_state['oauth_token'] = fetch_response.get("oauth_token")
         streamlit.session_state['oauth_token_secret'] = fetch_response.get("oauth_token_secret")
+        streamlit.write("Fetch Token")
         streamlit.write("Got OAuth token: %s" % streamlit.session_state['oauth_token'])
         authTwitterUser()
     except ValueError:
