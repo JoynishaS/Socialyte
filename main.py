@@ -2,9 +2,6 @@ import base64
 import streamlit
 from pathlib import Path
 from requests_oauthlib import OAuth1Session
-import requests
-import json
-
 
 streamlit.write("Welcome to Socialyte!")
 streamlit.write("Sign in to linked in or twitter to begin!")
@@ -59,20 +56,6 @@ url = streamlit.session_state['twitter_auth_url']
 html = f"<a href='{url}'><img src='data:image/png;base64,{image_base64}'></a>"
 streamlit.markdown(html, unsafe_allow_html=True)
 
-
-# Get the access token
-def getAccessToken():
-    access_token_url = "https://api.twitter.com/oauth/access_token"
-    oauth = OAuth1Session(
-        consumer_key,
-        #client_secret=client_secret,
-        resource_owner_key=streamlit.session_state['oauth_token'],
-        resource_owner_secret=streamlit.session_state['oauth_token_secret']
-    )
-    oauth_tokens = oauth.fetch_access_token(access_token_url)
-
-    streamlit.session_state['twitter_access_token'] = oauth_tokens["oauth_token"]
-    #streamlit.session_state['twitter_access_token_secret'] = oauth_tokens["oauth_token_secret"]'
 
 
 

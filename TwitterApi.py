@@ -5,8 +5,20 @@ import streamlit
 
 consumer_key = streamlit.secrets['TWITTER_CONSUMER_KEY']
 consumer_secret = streamlit.secrets['TWITTER_CONSUMER_SECRET']
-oauth = OAuth1Session(consumer_key, client_secret=consumer_secret)
 
+# Get the access token
+def getAccessToken():
+    access_token_url = "https://api.twitter.com/oauth/access_token"
+    oauth = OAuth1Session(
+        client_key=consumer_key,
+        client_secret=consumer_secret,
+        resource_owner_key=streamlit.session_state['oauth_token'],
+        resource_owner_secret=streamlit.session_state['oauth_token_secret']
+    )
+    oauth_tokens = oauth.fetch_access_token(access_token_url)
+
+    streamlit.session_state['twitter_access_token'] = oauth_tokens["oauth_token"]
+    streamlit.session_state['twitter_access_token_secret'] = oauth_tokens["oauth_token_secret"]
 
 # Be sure to add replace the text of the with the text you wish to Tweet. You can also add parameters to post polls, quote Tweets, Tweet with reply settings, and Tweet to Super Followers in addition to other features.
 def postToTwitter(contentText, image):
