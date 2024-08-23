@@ -40,7 +40,7 @@ def imageWorkFlow():
 def sendTextToOpenAI(userRequest):
     return client.chat.completions.create(
         model="gpt-4o",
-        temperature=2,
+        temperature=1.3,
         messages=[
             {"role": "user", "content": userRequest}
                 ]
