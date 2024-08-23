@@ -23,9 +23,9 @@ def getAccessToken():
 def postToTwitter():
     getAccessToken()
     imageID = uploadImage()
-    streamlit.write(imageID)
+    streamlit.write(imageID['media_id'])
     payload = {"text": streamlit.session_state['key'],
-               "media": {"media_ids": [imageID[0]["media_id"]]}
+               "media": {"media_ids": [imageID['media_id']]}
                }
     streamlit.write(payload)
     # Make the request
