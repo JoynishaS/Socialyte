@@ -69,8 +69,7 @@ def uploadImage():
 
     response = oauth.post(
         "https://upload.twitter.com/1.1/media/upload.json",
-        files=image
-    )
+        files=[('media',image)])
 
     data = response
     streamlit.write(data.status_code)
