@@ -18,6 +18,7 @@ def getAccessToken():
 
     streamlit.session_state['twitter_access_token'] = oauth_tokens["oauth_token"]
     streamlit.session_state['twitter_access_token_secret'] = oauth_tokens["oauth_token_secret"]
+    return "done"
 
 #Refresh Token since Streamlit reload scripts everytime a user interacts
 def refreshToken():

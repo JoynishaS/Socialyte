@@ -15,10 +15,16 @@ client = OpenAI(
     project='proj_fqZ8kTAr98ZSgzH5cEdb8mGW'
 )
 
-#Only run the function once to get the access code!
+#Only run the function once to get the access linked in code!
 if 'linkedInToken' not in streamlit.session_state:
     if "code" in streamlit.query_params:
         streamlit.session_state['linkedInToken']  = LinkedInApi.getAccessTokenLinkedIn()
+
+# Only run the function once to get the access for twitter code!
+if 'TwitterToken' not in streamlit.session_state:
+    if "oauth_token" in streamlit.query_params:
+        streamlit.session_state['TwitterToken'] = TwitterApi.getAccessToken()
+
 
 #Function to send user request for images to Open AI
 def sendToOpenAI(description):
@@ -179,9 +185,6 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
             LinkedInApi.refreshToken()
 
         elif (platform_request == "TWITTER"):
-            if 'twitter_access_returned' not in streamlit.session_state:
-                    TwitterApi.getAccessToken()
-                    streamlit.session_state['twitter_access_returned'] = True
             TwitterApi.postToTwitter()
             TwitterApi.refreshToken()
 
