@@ -65,6 +65,7 @@ def getAccessToken():
 
 #Twitter Button!
 if streamlit.button("Login to Twitter", type="primary"):
+    streamlit.write("Button Pressed")
     requestTwitterToken()
 
 
