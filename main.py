@@ -20,8 +20,8 @@ html = f"<a href='{url}'><img src='data:image/png;base64,{image_base64}'></a>"
 streamlit.markdown(html, unsafe_allow_html=True)
 
 #Twitter Button!
-if streamlit.button("Login to Twitter", type="primary"):
-    TwitterApi.requestTwitterToken()
+#if streamlit.button("Login to Twitter", type="primary"):
+    #TwitterApi.requestTwitterToken()
 
 
 
