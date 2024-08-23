@@ -25,8 +25,8 @@ streamlit.markdown(html, unsafe_allow_html=True)
 
 #Twitter Code
 consumer_key = streamlit.secrets['TWITTER_CONSUMER_KEY']
-consumer_secret = streamlit.secrets['TWITTER_CONSUMER_SECRET']
-oauth = OAuth1Session(consumer_key, client_secret=consumer_secret)
+client_secret = streamlit.secrets['TWITTER_CLIENT_SECRET']
+oauth = OAuth1Session(consumer_key, client_secret=client_secret)
 
 # Get request token
 def requestTwitterToken():
