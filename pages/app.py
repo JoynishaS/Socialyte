@@ -179,7 +179,8 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
             LinkedInApi.refreshToken()
 
         elif (platform_request == "TWITTER"):
-            TwitterApi.getAccessToken()
+            if 'twitter_access_returned' not in streamlit.session_state:
+                TwitterApi.getAccessToken()
             TwitterApi.postToTwitter()
             TwitterApi.refreshToken()
 
