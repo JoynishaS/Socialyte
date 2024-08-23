@@ -33,7 +33,7 @@ oauth = OAuth1Session(client_key=consumer_key, client_secret=consumer_secret,res
 
 # Get request token
 def requestTwitterToken():
-    request_token_url = "https://api.twitter.com/oauth/request_token?oauth_callback=oob&x_auth_access_type=write"
+    request_token_url = "https://api.twitter.com/oauth/request_token"
 
     try:
         fetch_response = oauth.fetch_request_token(request_token_url)
