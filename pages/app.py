@@ -21,7 +21,7 @@ if 'linkedInToken' not in streamlit.session_state:
         streamlit.session_state['linkedInToken']  = LinkedInApi.getAccessTokenLinkedIn()
 
 # Only run the function once to get the access for twitter code!
-if 'TwitterToken' not in streamlit.session_state:
+if 'twitter_access_token' not in streamlit.session_state: 
     if "oauth_token" in streamlit.query_params:
         streamlit.session_state['TwitterToken'] = TwitterApi.getAccessToken()
 
