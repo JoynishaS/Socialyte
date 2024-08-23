@@ -180,7 +180,7 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
 
         elif (platform_request == "TWITTER"):
             TwitterApi.postToTwitter()
-            #TwitterApi.refreshToken()
+            TwitterApi.refreshToken()
 
 
 

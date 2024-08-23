@@ -21,7 +21,7 @@ def getAccessToken():
 
 #Refresh Token since Streamlit reload scripts everytime a user interacts
 def refreshToken():
-    url = streamlit.session_state['twitter_auth_url']
+    url = "https://socialyte.streamlit.app/app?oauth_token=%s&oauth_verifier=%s"%(streamlit.session_state['twitter_access_token'],streamlit.session_state['twitter_access_token_secret'])
     nav_script = """
         <meta http-equiv="refresh" content="0; url='%s'">
     """ % (url)
