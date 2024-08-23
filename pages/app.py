@@ -178,8 +178,6 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
             LinkedInApi.refreshToken()
 
         elif (platform_request == "TWITTER"):
-            streamlit.write(streamlit.session_state['oauth_token'])
-            streamlit.write(streamlit.session_state['oauth_token_secret'])
             TwitterApi.postToTwitter()
 
 
