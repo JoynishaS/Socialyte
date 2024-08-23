@@ -179,7 +179,7 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
 
         elif (platform_request == "TWITTER"):
             streamlit.write(streamlit.session_state['oauth_token'])
-            streamlit.write(resource_owner_secret = streamlit.session_state['oauth_token_secret'])
+            streamlit.write(streamlit.session_state['oauth_token_secret'])
             TwitterApi.postToTwitter()
 
 
