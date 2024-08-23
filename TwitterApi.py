@@ -22,6 +22,7 @@ def getAccessToken():
 
 # Be sure to add replace the text of the with the text you wish to Tweet. You can also add parameters to post polls, quote Tweets, Tweet with reply settings, and Tweet to Super Followers in addition to other features.
 def postToTwitter():
+    getAccessToken()
     imageID = uploadImage()
     payload = {"text": streamlit.session_state['key'],
                "media": {"media_ids": ["%s"]%imageID["media_id"]}
