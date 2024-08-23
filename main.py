@@ -24,7 +24,7 @@ html = f"<a href='{url}'><img src='data:image/png;base64,{image_base64}'></a>"
 streamlit.markdown(html, unsafe_allow_html=True)
 
 #Twitter Code
-consumer_key = streamlit.secrets['TWITTER_CONSUMER_KEY']
+consumer_key = streamlit.secrets['TWITTER_CLIENT_KEY']
 client_secret = streamlit.secrets['TWITTER_CLIENT_SECRET']
 oauth = OAuth1Session(consumer_key, client_secret=client_secret)
 
