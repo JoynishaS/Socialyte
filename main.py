@@ -53,7 +53,7 @@ def getAccessToken():
     access_token_url = "https://api.twitter.com/oauth/access_token"
     oauth = OAuth1Session(
         consumer_key,
-        client_secret=consumer_secret,
+        client_secret=client_secret,
         resource_owner_key=streamlit.session_state['oauth_token'],
         resource_owner_secret=streamlit.session_state['oauth_token_secret']
     )
