@@ -23,7 +23,7 @@ def authTwitterUser():
 
 # Get request token
 def requestTwitterToken():
-    request_token_url = "https://api.twitter.com/oauth/request_token"
+    request_token_url = "https://api.twitter.com/oauth/request_token?x_auth_access_type=write"
 
     try:
         fetch_response = oauth.fetch_request_token(request_token_url)
