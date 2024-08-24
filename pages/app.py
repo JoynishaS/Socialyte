@@ -20,6 +20,11 @@ if 'linkedInToken' not in streamlit.session_state:
     if "code" in streamlit.query_params:
         streamlit.session_state['linkedInToken']  = LinkedInApi.getAccessTokenLinkedIn()
 
+# Only run the function once to get the access for twitter code!
+if 'TwitterToken' not in streamlit.session_state:
+    if "oauth_token" in streamlit.query_params:
+        streamlit.session_state['TwitterToken'] = TwitterApi.getAccessToken()
+
 
 #Function to send user request for images to Open AI
 def sendToOpenAI(description):
