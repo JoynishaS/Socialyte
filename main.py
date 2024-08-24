@@ -2,7 +2,13 @@ import base64
 import streamlit
 from pathlib import Path
 from requests_oauthlib import OAuth1Session
+from PIL import Image
 
+# Loading Image using PIL
+im = Image.open('socialyte-logo.jpg')
+
+# Adding Image to web app
+streamlit.set_page_config(page_title="Socialyte", page_icon = im)
 
 streamlit.image("socialyte-logo.jpg", width = 100)
 streamlit.title("SOCIALYTE")
