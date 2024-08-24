@@ -23,11 +23,6 @@ def getAccessToken():
 #Refresh Token since Streamlit reload scripts everytime a user interacts
 def refreshToken():
    streamlit.rerun()
-   ''' url = "https://socialyte.streamlit.app/app?oauth_token=%s&oauth_verifier=%s"%(streamlit.session_state['twitter_access_token'],streamlit.session_state['twitter_access_token_secret'])
-    nav_script = """
-        <meta http-equiv="refresh" content="0; url='%s'">
-    """ % (url)
-    streamlit.write(nav_script, unsafe_allow_html=True)'''
 
 # Be sure to add replace the text of the with the text you wish to Tweet. You can also add parameters to post polls, quote Tweets, Tweet with reply settings, and Tweet to Super Followers in addition to other features.
 def postToTwitter():
@@ -35,10 +30,11 @@ def postToTwitter():
     streamlit.write(imageID['media_id'])
     streamlit.write(streamlit.session_state['twitter_access_token'])
     streamlit.write(streamlit.session_state['twitter_access_token_secret'])
+
     payload = {"text": streamlit.session_state['key'],
                "media": {"media_ids": [str(imageID['media_id'])]}
                }
-    streamlit.write(payload)
+
     # Make the request
     oauth = OAuth1Session(
         client_key=consumer_key,
@@ -52,8 +48,12 @@ def postToTwitter():
         "https://api.twitter.com/2/tweets",
         json=payload,
     )
-    streamlit.write(response.status_code)
-    streamlit.write(response.text)
+
+    if response.status_code == 403:
+        streamlit.write("Twitter thinks your post is a duplicate, please try again!")
+    if response.status_code == 201:
+        streamlit.write("Post was Successful!")
+        refreshToken()
 
 #Upload Image to twitter
 def uploadImage():
