@@ -95,7 +95,7 @@ def postToLinkedIn():
     if response.status_code != 201:
          streamlit.write(response.text)
 
-    if response.status_code == 200:
+    if response.status_code == 201:
          refreshToken()
 
     data = response
