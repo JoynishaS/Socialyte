@@ -18,11 +18,13 @@ client = OpenAI(
 #Only run the function once to get the access linked in code!
 if 'linkedInToken' not in streamlit.session_state:
     if "code" in streamlit.query_params:
+        streamlit.session_state['platform'] = "LINKEDIN"
         streamlit.session_state['linkedInToken']  = LinkedInApi.getAccessTokenLinkedIn()
 
 # Only run the function once to get the access for twitter code!
 if 'TwitterToken' not in streamlit.session_state:
     if "oauth_token" in streamlit.query_params:
+        streamlit.session_state['platform'] = "TWITTER"
         streamlit.session_state['TwitterToken'] = TwitterApi.getAccessToken()
 
 
@@ -176,14 +178,13 @@ if 'image' in streamlit.session_state and 'key' in streamlit.session_state:
 
 #Allow the user to choose what platform they want to post to and submit!
 if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
-    platform_request = streamlit.selectbox("Which platform do you want to post on?", ("LINKEDIN", "TWITTER"))
     if streamlit.button("Post", type="primary"):
-        streamlit.write("We Posted the content on ",platform_request)
+        streamlit.write("We Posted the content on ",streamlit.session_state['platform'])
         streamlit.write(streamlit.session_state['key'])
-        if(platform_request == "LINKEDIN"):
+        if(streamlit.session_state['platform'] == "LINKEDIN"):
             LinkedInApi.postToLinkedIn()
 
-        elif (platform_request == "TWITTER"):
+        elif (streamlit.session_state['platform'] == "TWITTER"):
             TwitterApi.postToTwitter()
 
 
