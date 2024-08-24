@@ -7,6 +7,7 @@ import LinkedInApi
 import tempfile
 import TwitterApi
 
+streamlit.header("Create your post")
 
 #Open AI Client Authorization
 client = OpenAI(
