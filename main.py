@@ -5,7 +5,7 @@ from requests_oauthlib import OAuth1Session
 
 streamlit.image("socialyte-logo.jpg", width = 100)
 streamlit.title("SOCIALYTE")
-streamlit.header("Sign in to linked in or twitter to begin!")
+streamlit.subheader("Sign in to linked in or twitter to begin!")
 
 
 #Twitter Code
