@@ -41,12 +41,13 @@ def getAuthorID():
 
 #Refresh Token since Streamlit reload scripts everytime a user interacts
 def refreshToken():
-    url = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(
+   streamlit.rerun()
+   ''' url = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id={}&redirect_uri={}&state=magentosDomingo&scope=openid%20email%20profile%20w_member_social".format(
         streamlit.secrets['LINKEDIN_CLIENT_ID'], streamlit.secrets['LINKEDIN_REDIRECT_URL'])
     nav_script = """
         <meta http-equiv="refresh" content="0; url='%s'">
     """ % (url)
-    streamlit.write(nav_script, unsafe_allow_html=True)
+    streamlit.write(nav_script, unsafe_allow_html=True)'''
 
 #Post to LinkedIn
 def postToLinkedIn():
@@ -92,7 +93,10 @@ def postToLinkedIn():
         data=body
     )
     if response.status_code != 201:
-        raise Exception("Non-200 response: " + str(response.text))
+         streamlit.write(response.text)
+
+    if response.status_code == 200:
+         refreshToken()
 
     data = response
     return data.text

@@ -27,9 +27,6 @@ def refreshToken():
 # Be sure to add replace the text of the with the text you wish to Tweet. You can also add parameters to post polls, quote Tweets, Tweet with reply settings, and Tweet to Super Followers in addition to other features.
 def postToTwitter():
     imageID = uploadImage()
-    streamlit.write(imageID['media_id'])
-    streamlit.write(streamlit.session_state['twitter_access_token'])
-    streamlit.write(streamlit.session_state['twitter_access_token_secret'])
 
     payload = {"text": streamlit.session_state['key'],
                "media": {"media_ids": [str(imageID['media_id'])]}
