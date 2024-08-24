@@ -79,6 +79,7 @@ def inputDefinition(language):
             input = "Translate the following text from English to German"
     return input
 
+
 #Function to return localized from Granite
 def graniteTextLocalization(texttoTranslate):
     access_token = graniteAuthorization()
@@ -126,7 +127,13 @@ imageModificationChoice = streamlit.radio(
     index=None,
 )
 
-#Switch Statement for Image Generation Options
+def changeTextArea():
+    final_post_text = streamlit.session_state.key
+
+def changeLocalizedTextArea():
+    localized_text = streamlit.session_state.key
+
+    #Switch Statement for Image Generation Options
 match imageModificationChoice:
     case "***Generate Image by Text***":
         streamlit.session_state['uploadMyOwnImage'] = False
@@ -162,14 +169,15 @@ if streamlit.button("Submit", type="primary"):
         language_input = inputDefinition(translation_request)
         streamlit.session_state['input'] = language_input
         localized_text = graniteTextLocalization(text_returned)['results'][0]['generated_text']
-        language_text = streamlit.text_area("Your Localized Post", localized_text)
-        streamlit.session_state['key'] = language_text
+        language_text = streamlit.text_area("Your Localized Post", localized_text, key = "key", on_change= changeLocalizedTextArea)
+        #streamlit.session_state['key'] = language_text
     else:
-        final_post_text = streamlit.text_area("Your Post", text_returned)
-        streamlit.session_state['key'] = final_post_text
+        final_post_text = streamlit.text_area("Your Post", text_returned, key = "key", on_change= changeTextArea)
+        #streamlit.session_state['key'] = final_post_text
 
     #Get image url
     imageWorkFlow()
+
 
 #Display image saved on the screen
 if 'image' in streamlit.session_state and 'key' in streamlit.session_state:
