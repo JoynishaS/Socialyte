@@ -161,7 +161,6 @@ translation_request = streamlit.selectbox("What Language should the post be in?"
 #When the user clicks submit add the text returned and image from Open AI to the screen, also save text for use later.
 if streamlit.button("Submit", type="primary"):
     #This is how you can get params in the url!!!
-    streamlit.write("We should be here")
     text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
 
     #Localize if a language other then english is selected from the dropdown
@@ -170,10 +169,8 @@ if streamlit.button("Submit", type="primary"):
         streamlit.session_state['input'] = language_input
         localized_text = graniteTextLocalization(text_returned)['results'][0]['generated_text']
         language_text = streamlit.text_area("Your Localized Post", localized_text, key = "key", on_change= changeLocalizedTextArea)
-        #streamlit.session_state['key'] = language_text
     else:
         final_post_text = streamlit.text_area("Your Post", text_returned, key = "key", on_change= changeTextArea)
-        #streamlit.session_state['key'] = final_post_text
 
     #Get image url
     imageWorkFlow()
@@ -190,10 +187,12 @@ if 'key' in streamlit.session_state and 'image' in streamlit.session_state:
         streamlit.write("We Posted the content on ",streamlit.session_state['platform'])
         streamlit.write(streamlit.session_state['key'])
         if(streamlit.session_state['platform'] == "LINKEDIN"):
-            LinkedInApi.postToLinkedIn()
+            with streamlit.spinner('Creating your Post...'):
+                LinkedInApi.postToLinkedIn()
 
         elif (streamlit.session_state['platform'] == "TWITTER"):
-            TwitterApi.postToTwitter()
+            with streamlit.spinner('Creating your Tweet...'):
+                TwitterApi.postToTwitter()
 
 
 

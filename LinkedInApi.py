@@ -95,7 +95,8 @@ def postToLinkedIn():
          streamlit.write(response.text)
 
     if response.status_code == 201:
-         refreshToken()
+        streamlit.success("Completed")
+        refreshToken()
 
     data = response
     return data.text
@@ -121,7 +122,6 @@ def initializeImageUpload():
     )
 
     data = response.json()
-    streamlit.write(data)
     return data
 
 def uploadImage():
@@ -142,8 +142,6 @@ def uploadImage():
         )
         data = response
         streamlit.write(data.status_code)
-    else:
-        streamlit.write("We experienced an error with the call!")
 
 #images have to be local for linkedin api so had to add this
 def download_image(url):
