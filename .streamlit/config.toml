@@ -3,7 +3,7 @@ primaryColor="#1282A2"
 backgroundColor="#034078"
 secondaryBackgroundColor="#001F54"
 textColor="#ffffff"
-font="serif"
+font="sans serif"
 
 [server]
 enableStaticServing = false
