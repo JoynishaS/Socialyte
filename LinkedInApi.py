@@ -92,7 +92,7 @@ def postToLinkedIn():
         data=body
     )
     if response.status_code != 201:
-         streamlit.write(response.text)
+         streamlit.error(response.text)
 
     if response.status_code == 201:
         streamlit.success("Completed")
@@ -141,7 +141,6 @@ def uploadImage():
             data=image
         )
         data = response
-        streamlit.write(data.status_code)
 
 #images have to be local for linkedin api so had to add this
 def download_image(url):
@@ -155,5 +154,5 @@ def download_image(url):
     with open(filename, 'wb') as file:
         file.write(response.content)
 
-    streamlit.write("Image uploaded successfully!")
+    streamlit.success("Image uploaded successfully!")
 

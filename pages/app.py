@@ -175,7 +175,7 @@ if streamlit.button("Submit", type="primary"):
 
         #Get image url
         imageWorkFlow()
-    
+
 #Display image saved on the screen
 if 'image' in streamlit.session_state and 'key' in streamlit.session_state:
     streamlit.image(streamlit.session_state['image'])

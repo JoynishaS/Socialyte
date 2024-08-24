@@ -47,7 +47,7 @@ def postToTwitter():
     )
 
     if response.status_code == 403:
-        streamlit.write("Twitter has checked and thinks your tweet is a duplicate from yours or another twitter account, please try generating another post!")
+        streamlit.error("Twitter has checked and thinks your tweet is a duplicate from yours or another twitter account, please try generating another post!")
     if response.status_code == 201:
         streamlit.success("Completed")
         refreshToken()
@@ -74,7 +74,7 @@ def uploadImage():
     data = response.json()
 
     if response.status_code != 201:
-        streamlit.write("We experienced an error with the call!")
+        streamlit.error("We experienced an error with the call!")
     return data
 
 #images have to be local for linkedin api so had to add this
@@ -89,4 +89,4 @@ def download_image(url):
     with open(filename, 'wb') as file:
         file.write(response.content)
 
-    streamlit.write("Image uploaded successfully!")
+    streamlit.success("Image uploaded successfully!")
