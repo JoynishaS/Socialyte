@@ -160,22 +160,22 @@ translation_request = streamlit.selectbox("What Language should the post be in?"
 
 #When the user clicks submit add the text returned and image from Open AI to the screen, also save text for use later.
 if streamlit.button("Submit", type="primary"):
-    #This is how you can get params in the url!!!
-    text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
+    with streamlit.spinner('Generating your Content...'):
+        #This is how you can get params in the url!!!
+        text_returned = sendTextToOpenAI(topic_request).choices[0].message.content
 
-    #Localize if a language other then english is selected from the dropdown
-    if translation_request != "English":
-        language_input = inputDefinition(translation_request)
-        streamlit.session_state['input'] = language_input
-        localized_text = graniteTextLocalization(text_returned)['results'][0]['generated_text']
-        language_text = streamlit.text_area("Your Localized Post", localized_text, key = "key", on_change= changeLocalizedTextArea)
-    else:
-        final_post_text = streamlit.text_area("Your Post", text_returned, key = "key", on_change= changeTextArea)
+        #Localize if a language other then english is selected from the dropdown
+        if translation_request != "English":
+            language_input = inputDefinition(translation_request)
+            streamlit.session_state['input'] = language_input
+            localized_text = graniteTextLocalization(text_returned)['results'][0]['generated_text']
+            language_text = streamlit.text_area("Your Localized Post", localized_text, key = "key", on_change= changeLocalizedTextArea)
+        else:
+            final_post_text = streamlit.text_area("Your Post", text_returned, key = "key", on_change= changeTextArea)
 
-    #Get image url
-    imageWorkFlow()
-
-
+        #Get image url
+        imageWorkFlow()
+    
 #Display image saved on the screen
 if 'image' in streamlit.session_state and 'key' in streamlit.session_state:
     streamlit.image(streamlit.session_state['image'])
