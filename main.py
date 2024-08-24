@@ -3,8 +3,9 @@ import streamlit
 from pathlib import Path
 from requests_oauthlib import OAuth1Session
 
-streamlit.write("Welcome to Socialyte!")
-streamlit.write("Sign in to linked in or twitter to begin!")
+streamlit.image("socialyte-logo.jpg", width = 100)
+streamlit.title("SOCIALYTE")
+streamlit.header("Sign in to linked in or twitter to begin!")
 
 
 #Twitter Code
