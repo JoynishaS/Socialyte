@@ -131,10 +131,10 @@ imageModificationChoice = streamlit.radio(
 )
 
 def changeTextArea():
-    final_post_text = streamlit.session_state.key
+    final_post_text = streamlit.session_state.key + " Posted using Socialyte"
 
 def changeLocalizedTextArea():
-    localized_text = streamlit.session_state.key
+    localized_text = streamlit.session_state.key + " Posted using Socialyte"
 
     #Switch Statement for Image Generation Options
 match imageModificationChoice:
