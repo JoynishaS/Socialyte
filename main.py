@@ -3,6 +3,7 @@ import streamlit
 from pathlib import Path
 from requests_oauthlib import OAuth1Session
 
+
 streamlit.image("socialyte-logo.jpg", width = 100)
 streamlit.title("SOCIALYTE")
 streamlit.subheader("Sign in to LinkedIn or Twitter to begin!")
