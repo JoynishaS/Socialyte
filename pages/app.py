@@ -7,7 +7,7 @@ import LinkedInApi
 import tempfile
 import TwitterApi
 
-streamlit.page_link("https://socialyte.streamlit.app")
+streamlit.page_link("https://socialyte.streamlit.app",label="Home",icon="🏠")
 
 streamlit.header("Create your post")
 
