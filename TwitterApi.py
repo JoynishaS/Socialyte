@@ -47,7 +47,7 @@ def postToTwitter():
     )
 
     if response.status_code == 403:
-        streamlit.write("Twitter thinks your post is a duplicate, please try again!")
+        streamlit.write("Twitter has checked and thinks your post is a duplicate from yours or another twitter account, please try generating another post!")
     if response.status_code == 201:
         streamlit.write("Post was Successful!")
         refreshToken()
