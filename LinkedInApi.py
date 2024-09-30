@@ -83,7 +83,7 @@ def postToLinkedIn():
     headers = {
         'Authorization': 'Bearer %s'%(streamlit.session_state['linkedInToken']),
         'X-Restli-Protocol-Version': '2.0.0',
-        'LinkedIn-Version': '202308',
+        'LinkedIn-Version': '202409',
         'Content-Type': 'application/json'
     }
     response = requests.post(
